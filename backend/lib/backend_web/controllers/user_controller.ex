@@ -8,7 +8,7 @@ defmodule BackendWeb.UserController do
   action_fallback BackendWeb.FallbackController
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Accounts.create_user(user_params),
+    with {:ok, %User{} = user} <- Users.create_user(user_params),
     {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
       conn
       |> put_status(:created)
