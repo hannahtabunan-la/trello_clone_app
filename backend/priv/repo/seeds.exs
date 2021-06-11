@@ -9,3 +9,10 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+
+alias Backend.Repo
+alias Backend.Schemas.User
+
+# insert default user
+Repo.insert!(%User{username: "hannah.tabunan@lawadvisor.com", name: "hannah", password: "palindrome"})
