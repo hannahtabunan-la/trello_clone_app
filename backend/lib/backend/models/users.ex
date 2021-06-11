@@ -1,4 +1,4 @@
-defmodule Backend.Account.Users do
+defmodule Backend.Models.Users do
   @moduledoc """
   The Account context.
   """
@@ -6,7 +6,7 @@ defmodule Backend.Account.Users do
   import Ecto.Query, warn: false
   alias Backend.Repo
 
-  alias Backend.Account.User
+  alias Backend.Schemas.User
 
   @doc """
   Returns the list of users.

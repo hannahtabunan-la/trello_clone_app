@@ -1,11 +1,11 @@
-defmodule Backend.Account.User do
+defmodule Backend.Schemas.User do
   use Ecto.Schema
   import Ecto.Changeset
 
   schema "users" do
     field :name, :string
     field :password, :string
-    field :username, :string
+    field :username, :string, unique: true
 
     timestamps()
   end
@@ -15,5 +15,7 @@ defmodule Backend.Account.User do
     user
     |> cast(attrs, [:username, :name, :password])
     |> validate_required([:username, :name, :password])
+    |> validate_format(:username, ~r/@/)
+    |> unique_constraint(:username)
   end
 end

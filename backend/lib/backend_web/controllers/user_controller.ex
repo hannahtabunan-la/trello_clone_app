@@ -1,8 +1,8 @@
 defmodule BackendWeb.UserController do
   use BackendWeb, :controller
 
-  alias Backend.Account.Users
-  alias Backend.Account.User
+  alias Backend.Models.Users
+  alias Backend.Schemas.User
 
   action_fallback BackendWeb.FallbackController
 
