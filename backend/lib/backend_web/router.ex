@@ -17,7 +17,7 @@ defmodule BackendWeb.Router do
     pipe_through :browser
     get "/", DefaultController, :index
 
-    resources "/users", UserController, [:list, :new, :edit]
+    resources "/users", UserController, [:index, :new, :edit]
   end
 
   # Enables LiveDashboard only for development
