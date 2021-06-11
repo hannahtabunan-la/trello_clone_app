@@ -18,6 +18,8 @@ defmodule BackendWeb.Router do
     get "/", DefaultController, :index
 
     resources "/users", UserController, [:index, :new, :edit]
+    post "/users/signup", UserController, :create
+    post "/users/signin", UserController, :signin
   end
 
   # Enables LiveDashboard only for development
