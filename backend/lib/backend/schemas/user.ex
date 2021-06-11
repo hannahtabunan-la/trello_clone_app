@@ -5,7 +5,7 @@ defmodule Backend.Schemas.User do
   schema "users" do
     field :name, :string
     field :password, :string
-    field :username, :string, unique: true
+    field :username, :string
 
     timestamps()
   end
