@@ -14,6 +14,7 @@ defmodule BackendWeb.UserView do
     %{id: user.id,
       username: user.username,
       name: user.name,
-      password: user.password}
+      inserted_at: NaiveDateTime.to_string(user.inserted_at),
+      updated_at: NaiveDateTime.to_string(user.updated_at)}
   end
 end
