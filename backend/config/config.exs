@@ -29,3 +29,7 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+config :backend, BackendWeb.Auth.Guardian,
+  issuer: "backend",
+  secret_key: "FynC/fsXquxgIZPSyIBDESGz5ftgP8n6v6GS5drLZF7yhrWvz5/phttpsd9nRueA"
