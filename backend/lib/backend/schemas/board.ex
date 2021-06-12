@@ -5,6 +5,7 @@ defmodule Backend.Schemas.Board do
   schema "boards" do
     field :name, :string
     belongs_to :user, EctoAssoc.User  # User relationship
+    has_many :tasks, EctoAssoc.Task  # Task relationship
 
     timestamps()
   end
