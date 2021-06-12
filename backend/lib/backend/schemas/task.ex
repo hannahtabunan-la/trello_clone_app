@@ -7,8 +7,8 @@ defmodule Backend.Schemas.Task do
     field :status, Ecto.Enum, values: [:pending, :in_progress, :completed], default: :pending
     field :title, :string
     field :position, :decimal, default: 1.0
-    belongs_to :board, EctoAssoc.Board  # Board relationship
-    belongs_to :user, EctoAssoc.User  # User relationship
+    belongs_to :board, Backend.Schemas.Board  # Board relationship
+    belongs_to :user, Backend.Schemas.User  # User relationship
 
     timestamps()
   end
