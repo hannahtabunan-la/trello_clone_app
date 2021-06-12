@@ -1,7 +1,7 @@
 defmodule BackendWeb.UserController do
   use BackendWeb, :controller
 
-  alias Backend.Models.Users
+  alias Backend.Users
   alias Backend.Schemas.User
   alias BackendWeb.Auth.Guardian
 

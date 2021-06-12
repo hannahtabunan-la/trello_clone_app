@@ -1,4 +1,4 @@
-defmodule Backend.Models.Users do
+defmodule Backend.Users do
   @moduledoc """
   The Account context.
   """
