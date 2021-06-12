@@ -101,4 +101,10 @@ defmodule Backend.Tasks do
   def change_task(%Task{} = task, attrs \\ %{}) do
     Task.changeset(task, attrs)
   end
+
+  def list_tasks_not_deleted() do
+    query = from t in Task,
+            where: t.is_deleted == :false
+    Repo.all(query)
+  end
 end
