@@ -112,7 +112,7 @@ defmodule Backend.Tasks do
   @doc """
   Returns the last position from the table.
   """
-  def last_position() do
+  def get_last_position() do
     Repo.one(from u in Task, select: [:position], order_by: [desc: u.position], limit: 1)
   end
 end
