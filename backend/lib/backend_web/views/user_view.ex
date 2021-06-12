@@ -10,11 +10,10 @@ defmodule BackendWeb.UserView do
     %{data: render_one(user, UserView, "user.json")}
   end
 
-  def render("user.json", %{user: user, token: token}) do
+  def render("user.json", %{user: user}) do
     %{id: user.id,
       username: user.username,
       name: user.name,
-      token: token,
       inserted_at: NaiveDateTime.to_string(user.inserted_at),
       updated_at: NaiveDateTime.to_string(user.updated_at)}
   end
