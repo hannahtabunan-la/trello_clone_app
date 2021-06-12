@@ -13,4 +13,24 @@ defmodule BackendWeb.Auth.Guardian do
     resource = Accounts.get_user!(id)
     {:ok,  resource}
   end
+
+  def authenticate(username, password) do
+    with {:ok, user} <- Users.get_by_username(username) do
+      case validate_password(password, user.encrypted_password) do
+        true ->
+          create_token(user)
+        false ->
+          {:error, :unauthorized}
+      end
+    end
+  end
+
+  def validate_password(password, encrypted_password) do
+    Comeonin.Bcrypt.checkpw(password, encrypted_password)
+  end
+
+  def create_token(user) do
+    {:ok, token, _claims} = encode_and_sgn(user)
+    {:ok, user, token}
+  end
 end
