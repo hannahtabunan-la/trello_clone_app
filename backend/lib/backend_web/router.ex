@@ -24,13 +24,13 @@ defmodule BackendWeb.Router do
 
   scope "/api", BackendWeb do
     pipe_through :api
-    post "/users/signup", UserController, :create
-    post "/users/signin", UserController, :signin
+    post "/accounts/signup", AccountController, :create
+    post "/accounts/signin", AccountController, :signin
   end
 
   scope "/api", BackendWeb do
     pipe_through [:api, :auth]
-    resources "/users", UserController, except: [:new, :edit]
+    resources "/users", UserController, [:index]
   end
 
   # Enables LiveDashboard only for development
