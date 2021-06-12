@@ -6,6 +6,7 @@ defmodule Backend.Schemas.Task do
     field :is_deleted, :boolean, default: false
     field :status, Ecto.Enum, values: [:pending, :in_progress, :completed], default: :pending
     field :title, :string
+    field :position, :decimal, default: 1.0
     # TODO: Add board relationship
 
     timestamps()
