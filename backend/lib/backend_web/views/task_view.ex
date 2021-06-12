@@ -14,6 +14,7 @@ defmodule BackendWeb.TaskView do
     %{id: task.id,
       title: task.title,
       status: task.status,
+      position: task.position,
       is_deleted: task.is_deleted}
   end
 end
