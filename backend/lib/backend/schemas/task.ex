@@ -4,7 +4,7 @@ defmodule Backend.Schemas.Task do
 
   schema "tasks" do
     field :is_deleted, :boolean, default: false
-    field :status, Ecto.Enum, values: [:pending, :in_progress, :completed]
+    field :status, Ecto.Enum, values: [:pending, :in_progress, :completed], default: :pending
     field :title, :string
     # TODO: Add board relationship
 
@@ -15,6 +15,7 @@ defmodule Backend.Schemas.Task do
   def changeset(task, attrs) do
     task
     |> cast(attrs, [:title, :status, :is_deleted])
-    |> validate_required([:title, :status, :is_deleted])
+    |> validate_required([:title])
+    |> validate_inclusion(:status, [:pending, :in_progress, :completed])
   end
 end
