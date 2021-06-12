@@ -33,6 +33,11 @@ defmodule BackendWeb.Router do
     resources "/users", UserController, [:index]
   end
 
+  scope "/api", BackendWeb do
+    pipe_through [:api, :auth]
+    resources "/tasks", TaskController, [:index, :create, :show, :update, :delete]
+  end
+
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
