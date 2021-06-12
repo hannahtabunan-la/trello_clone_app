@@ -13,13 +13,24 @@ defmodule BackendWeb.Router do
     plug(:accepts, ["html"])
   end
 
+  pipeline :auth do
+    plug BackendWeb.Auth.Pipeline
+  end
+
   scope "/", BackendWeb do
     pipe_through :browser
     get "/", DefaultController, :index
+  end
 
-    resources "/users", UserController, [:index, :new, :edit]
+  scope "/api", BackendWeb do
+    pipe_through :api
     post "/users/signup", UserController, :create
     post "/users/signin", UserController, :signin
+  end
+
+  scope "/api", BackendWeb do
+    pipe_through [:api, :auth]
+    resources "/users", UserController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
