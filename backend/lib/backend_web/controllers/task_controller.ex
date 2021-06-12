@@ -12,6 +12,15 @@ defmodule BackendWeb.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
+    new_position = case Tasks.get_last_position() do
+      nil ->
+        "1.0"
+      %{ position: last_position } ->
+          Decimal.add(last_position, "1.0")
+    end
+
+    task_params = Map.put(task_params, "position", new_position)
+
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn
       |> put_status(:created)
