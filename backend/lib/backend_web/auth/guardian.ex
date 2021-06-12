@@ -10,7 +10,7 @@ defmodule BackendWeb.Auth.Guardian do
 
   def resource_from_claims(claims) do
     id = claims["sub"]
-    resource = Accounts.get_user!(id)
+    resource = Users.get_user!(id)
     {:ok,  resource}
   end
 
