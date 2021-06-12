@@ -30,7 +30,7 @@ defmodule BackendWeb.Auth.Guardian do
   end
 
   def create_token(user) do
-    {:ok, token, _claims} = encode_and_sgn(user)
+    {:ok, token, _claims} = encode_and_sign(user)
     {:ok, user, token}
   end
 end
