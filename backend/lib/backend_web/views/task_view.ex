@@ -15,6 +15,8 @@ defmodule BackendWeb.TaskView do
       title: task.title,
       status: task.status,
       position: task.position,
-      is_deleted: task.is_deleted}
+      is_deleted: task.is_deleted,
+      inserted_at: NaiveDateTime.to_string(task.inserted_at),
+      updated_at: NaiveDateTime.to_string(task.updated_at)}
   end
 end
