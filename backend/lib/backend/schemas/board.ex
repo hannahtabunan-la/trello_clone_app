@@ -4,7 +4,7 @@ defmodule Backend.Schemas.Board do
 
   schema "boards" do
     field :name, :string
-    # TODO: add user creator
+    belongs_to :user, EctoAssoc.User  # User relationship
 
     timestamps()
   end
