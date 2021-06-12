@@ -107,4 +107,12 @@ defmodule Backend.Tasks do
             where: t.is_deleted == :false
     Repo.all(query)
   end
+
+
+  @doc """
+  Returns the last position from the table.
+  """
+  def last_position() do
+    Repo.one(from u in Task, select: [:position], order_by: [desc: u.position], limit: 1)
+  end
 end
