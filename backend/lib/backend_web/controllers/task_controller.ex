@@ -35,8 +35,9 @@ defmodule BackendWeb.TaskController do
 
   def delete(conn, %{"id" => id}) do
     task = Tasks.get_task!(id)
+    task_params = %{"is_deleted" => true}
 
-    with {:ok, %Task{}} <- Tasks.delete_task(task) do
+    with {:ok, %Task{}} <- Tasks.update_task(task, task_params) do
       send_resp(conn, :no_content, "")
     end
   end
