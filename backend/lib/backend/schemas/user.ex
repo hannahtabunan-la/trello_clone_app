@@ -7,7 +7,7 @@ defmodule Backend.Schemas.User do
     field :password, :string, virtual: true
     field :encrypted_password, :string
     field :username, :string
-    has_many :board, EctoAssoc.Board  # Board relationship
+    has_many :boards, EctoAssoc.Board  # Board relationship
 
     timestamps()
   end
