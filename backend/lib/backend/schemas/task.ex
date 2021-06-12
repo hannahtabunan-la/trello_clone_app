@@ -8,7 +8,7 @@ defmodule Backend.Schemas.Task do
     field :title, :string
     field :position, :decimal, default: 1.0
     belongs_to :board, EctoAssoc.Board  # Board relationship
-    # TODO: Add user relationship
+    belongs_to :user, EctoAssoc.User  # User relationship
 
     timestamps()
   end

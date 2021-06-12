@@ -8,6 +8,7 @@ defmodule Backend.Schemas.User do
     field :encrypted_password, :string
     field :username, :string
     has_many :boards, EctoAssoc.Board  # Board relationship
+    has_many :tasks, EctoAssoc.Task  # User relationship
 
     timestamps()
   end
