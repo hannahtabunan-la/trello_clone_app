@@ -37,10 +37,9 @@ defmodule BackendWeb.Router do
   scope "/api", BackendWeb do
     pipe_through [:api, :auth, :with_session]
     resources "/users", UserController, [:index]
-  end
 
-  scope "/api", BackendWeb do
-    pipe_through [:api, :auth, :with_session]
+    resources "/boards", BoardController, [:index, :create, :show, :update, :delete]
+
     resources "/tasks", TaskController, [:index, :create, :show, :update, :delete]
   end
 
