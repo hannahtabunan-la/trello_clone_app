@@ -14,9 +14,17 @@ defmodule Backend.Schemas.Task do
   end
 
   @doc false
-  def changeset(task, attrs) do
+  def create_changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :status, :is_deleted, :user_id])
+    |> cast(attrs, [:title, :status, :is_deleted, :user_id, :board_id])
+    |> validate_required([:title, :board_id])
+    |> validate_inclusion(:status, [:pending, :in_progress, :completed])
+    |> assoc_constraint(:board)
+  end
+
+  def update_changeset(task, attrs) do
+    task
+    |> cast(attrs, [:title, :status, :is_deleted])
     |> validate_required([:title])
     |> validate_inclusion(:status, [:pending, :in_progress, :completed])
   end
