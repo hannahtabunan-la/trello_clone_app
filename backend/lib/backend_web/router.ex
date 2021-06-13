@@ -5,6 +5,12 @@ defmodule BackendWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :with_session do
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+    plug BackendWeb.CurrentUser
+  end
+
   scope "/api", BackendWeb do
     pipe_through :api
   end
@@ -29,12 +35,12 @@ defmodule BackendWeb.Router do
   end
 
   scope "/api", BackendWeb do
-    pipe_through [:api, :auth]
+    pipe_through [:api, :auth, :with_session]
     resources "/users", UserController, [:index]
   end
 
   scope "/api", BackendWeb do
-    pipe_through [:api, :auth]
+    pipe_through [:api, :auth, :with_session]
     resources "/tasks", TaskController, [:index, :create, :show, :update, :delete]
   end
 
