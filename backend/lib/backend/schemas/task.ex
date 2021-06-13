@@ -16,7 +16,7 @@ defmodule Backend.Schemas.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :status, :is_deleted])
+    |> cast(attrs, [:title, :status, :is_deleted, :user_id])
     |> validate_required([:title])
     |> validate_inclusion(:status, [:pending, :in_progress, :completed])
   end

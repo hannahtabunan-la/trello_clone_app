@@ -20,6 +20,7 @@ defmodule BackendWeb.TaskController do
     end
 
     task_params = Map.put(task_params, "position", new_position)
+    task_params = Map.put(task_params, "user_id", conn.assigns.current_user.id)
 
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn
