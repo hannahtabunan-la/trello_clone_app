@@ -18,7 +18,10 @@ defmodule Backend.Boards do
 
   """
   def list_boards do
-    Repo.all(Board)
+    query = from b in Board,
+      join: u in assoc(b, :user),
+      preload: [user: u]
+    Repo.all(query)
   end
 
   @doc """
