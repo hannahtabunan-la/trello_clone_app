@@ -1,6 +1,7 @@
 defmodule BackendWeb.TaskView do
   use BackendWeb, :view
   alias BackendWeb.TaskView
+  alias BackendWeb.UserView
 
   def render("index.json", %{tasks: tasks}) do
     %{data: render_many(tasks, TaskView, "task.json")}
@@ -16,6 +17,8 @@ defmodule BackendWeb.TaskView do
       status: task.status,
       position: task.position,
       is_deleted: task.is_deleted,
+      board_id: task.board_id,
+      created_by: render_one(task.user, UserView, "user.json", as: :user),
       inserted_at: NaiveDateTime.to_string(task.inserted_at),
       updated_at: NaiveDateTime.to_string(task.updated_at)}
   end

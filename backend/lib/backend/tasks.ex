@@ -18,7 +18,10 @@ defmodule Backend.Tasks do
 
   """
   def list_tasks do
-    Repo.all(Task)
+    query = from t in Task,
+      join: u in assoc(t, :user),
+      preload: [user: u]
+    Repo.all(query)
   end
 
   @doc """
@@ -51,7 +54,7 @@ defmodule Backend.Tasks do
   """
   def create_task(attrs \\ %{}) do
     %Task{}
-    |> Task.changeset(attrs)
+    |> Task.create_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -69,7 +72,7 @@ defmodule Backend.Tasks do
   """
   def update_task(%Task{} = task, attrs) do
     task
-    |> Task.changeset(attrs)
+    |> Task.update_changeset(attrs)
     |> Repo.update()
   end
 
@@ -104,7 +107,9 @@ defmodule Backend.Tasks do
 
   def list_tasks_not_deleted() do
     query = from t in Task,
-            where: t.is_deleted == :false
+      join: u in assoc(t, :user),
+      preload: [user: u],
+      where: t.is_deleted == :false
     Repo.all(query)
   end
 
@@ -113,6 +118,9 @@ defmodule Backend.Tasks do
   Returns the last position from the table.
   """
   def get_last_position() do
-    Repo.one(from u in Task, select: [:position], order_by: [desc: u.position], limit: 1)
+    query = from t in Task,
+      select: [:position],
+      order_by: [desc: t.position], limit: 1
+    Repo.one(query)
   end
 end
