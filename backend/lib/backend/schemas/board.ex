@@ -13,7 +13,7 @@ defmodule Backend.Schemas.Board do
   @doc false
   def changeset(board, attrs) do
     board
-    |> cast(attrs, [:name])
+    |> cast(attrs, [:name, :user_id])
     |> validate_required([:name])
   end
 end
