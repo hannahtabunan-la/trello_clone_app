@@ -42,7 +42,7 @@ defmodule BackendWeb.Router do
 
     resources "/tasks", TaskController, [:index, :create, :show, :update, :delete]
 
-    resources "/permissions", PermissionController, [:index, :show, :update]
+    resources "/permissions", PermissionController, [:index, :create, :show, :update]
   end
 
   # Enables LiveDashboard only for development
