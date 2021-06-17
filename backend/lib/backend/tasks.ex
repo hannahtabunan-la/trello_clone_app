@@ -7,6 +7,7 @@ defmodule Backend.Tasks do
   alias Backend.Repo
 
   alias Backend.Schemas.Task
+  alias Backend.Tasks
 
   @doc """
   Returns the list of tasks.
@@ -56,6 +57,10 @@ defmodule Backend.Tasks do
     %Task{}
     |> Task.create_changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, task} -> {:ok, Repo.preload(task, [:board, :user], force: true)}
+      {:error, task} -> {:error, task}
+    end
   end
 
   @doc """
@@ -74,6 +79,10 @@ defmodule Backend.Tasks do
     task
     |> Task.update_changeset(attrs)
     |> Repo.update()
+    |> case do
+      {:ok, task} -> {:ok, Repo.preload(task, [:board, :user], force: true)}
+      {:error, task} -> {:error, task}
+    end
   end
 
   @doc """
@@ -122,5 +131,9 @@ defmodule Backend.Tasks do
       select: [:position],
       order_by: [desc: t.position], limit: 1
     Repo.one(query)
+  end
+
+  def handle_changeset_error({:error, task}) do
+
   end
 end
