@@ -27,10 +27,10 @@ defmodule FrontendWeb do
     end
   end
 
-  def view do
+   def view do
     quote do
       use Phoenix.View,
-        root: "lib/frontend_web/templates",
+        root: "lib/<%= lib_web_name %>/templates",
         namespace: FrontendWeb
 
       # Import convenience functions from controllers
@@ -42,19 +42,20 @@ defmodule FrontendWeb do
     end
   end
 
-  def router do
+  def live_view do
     quote do
-      use Phoenix.Router
+      use Phoenix.LiveView,
+        layout: {FrontendWeb.LayoutView, "live.html"}
 
-      import Plug.Conn
-      import Phoenix.Controller
+      unquote(view_helpers())
     end
   end
 
-  def channel do
+  def live_component do
     quote do
-      use Phoenix.Channel
-      import FrontendWeb.Gettext
+      use Phoenix.LiveComponent
+
+      unquote(view_helpers())
     end
   end
 
@@ -63,12 +64,32 @@ defmodule FrontendWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
+      # Import LiveView helpers (live_render, live_component, live_patch, etc)
+      import Phoenix.LiveView.Helpers
+
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
       import FrontendWeb.ErrorHelpers
       import FrontendWeb.Gettext
       alias FrontendWeb.Router.Helpers, as: Routes
+    end
+  end
+
+  def router do
+    quote do
+      use Phoenix.Router
+
+      import Plug.Conn
+      import Phoenix.Controller
+      import Phoenix.LiveView.Router
+    end
+  end
+
+  def channel do
+    quote do
+      use Phoenix.Channel
+      import FrontendWeb.Gettext
     end
   end
 

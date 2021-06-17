@@ -4,9 +4,10 @@ defmodule FrontendWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_flash
+    plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_root_layout, {FrontendWeb.LayoutView, :root}
   end
 
   pipeline :api do
@@ -22,6 +23,19 @@ defmodule FrontendWeb.Router do
   # Other scopes may use custom stacks.
   # scope "/api", FrontendWeb do
   #   pipe_through :api
+  # end
+
+  scope "/", FrontendWeb do
+    pipe_through :browser
+
+    get "/signin", AccountController, :index
+  end
+
+  # scope "/", FrontendWeb do
+  #   pipe_through :browser
+
+  #   post "/signup", AccountController, :create
+  #   post "/signin", AccountController, :signin
   # end
 
   # Enables LiveDashboard only for development

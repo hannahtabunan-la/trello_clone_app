@@ -10,7 +10,7 @@ use Mix.Config
 # Configures the endpoint
 config :frontend, FrontendWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "YQdBGpil2gJBSqNZAObucPRytmuDEj0Ju7O51g0f2ZHJ1LsmSAZ2q6H3ifo25/jL",
+  secret_key_base: "gtUBDVEOZ98xvIKeFN9BKD95EJXEx6Ff",
   render_errors: [view: FrontendWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Frontend.PubSub,
   live_view: [signing_salt: "y/jXE5fd"]
