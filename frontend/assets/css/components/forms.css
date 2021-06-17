@@ -1,0 +1,18 @@
+@layer components {
+    .form {
+        @apply w-full max-w-full my-1 py-2;
+    }
+
+    .form label {
+        @apply block font-bold md:text-right md:mb-0 pr-4 my-2;
+    }
+
+    .form input {
+        @apply text-gray-500 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 my-2;
+    }
+
+    [type='checkbox'] {
+        @apply text-yellow h-5 w-5 mx-2;
+    }
+}
+
