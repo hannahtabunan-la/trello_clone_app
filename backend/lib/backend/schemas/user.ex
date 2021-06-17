@@ -2,13 +2,18 @@ defmodule Backend.Schemas.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Backend.Schemas.Board
+  alias Backend.Schemas.Task
+  alias Backend.Schemas.Permission
+
   schema "users" do
     field :name, :string
     field :password, :string, virtual: true
     field :encrypted_password, :string
     field :username, :string
-    has_many :boards, Backend.Schemas.Board  # Board relationship
-    has_many :tasks, Backend.Schemas.Task  # User relationship
+    has_many :boards, Board  # Board relationship
+    has_many :tasks, Task  # User relationship
+    has_many :permissions, Permission  # User relationship
 
     timestamps()
   end
