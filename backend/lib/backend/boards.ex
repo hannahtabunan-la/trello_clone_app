@@ -56,6 +56,10 @@ defmodule Backend.Boards do
     %Board{}
     |> Board.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, board} -> {:ok, Repo.preload(board, :user, force: true)}
+      {:error, board} -> {:error, board}
+    end
   end
 
   @doc """
@@ -74,6 +78,10 @@ defmodule Backend.Boards do
     board
     |> Board.changeset(attrs)
     |> Repo.update()
+    |> case do
+      {:ok, board} -> {:ok, Repo.preload(board, :user, force: true)}
+      {:error, board} -> {:error, board}
+    end
   end
 
   @doc """
