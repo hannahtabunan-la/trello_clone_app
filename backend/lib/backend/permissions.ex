@@ -51,8 +51,12 @@ defmodule Backend.Permissions do
   """
   def create_permission(attrs \\ %{}) do
     %Permission{}
-    |> Permission.changeset(attrs)
+    |> Permission.create_changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, permission} -> {:ok, Repo.preload(permission, [:user, :board], force: true)}
+      {:error, permission} -> {:error, permission}
+    end
   end
 
   @doc """
@@ -69,8 +73,12 @@ defmodule Backend.Permissions do
   """
   def update_permission(%Permission{} = permission, attrs) do
     permission
-    |> Permission.changeset(attrs)
+    |> Permission.update_changeset(attrs)
     |> Repo.update()
+    |> case do
+      {:ok, permission} -> {:ok, Repo.preload(permission, [:user, :board], force: true)}
+      {:error, permission} -> {:error, permission}
+    end
   end
 
   @doc """
