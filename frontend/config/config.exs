@@ -10,10 +10,10 @@ use Mix.Config
 # Configures the endpoint
 config :frontend, FrontendWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "gtUBDVEOZ98xvIKeFN9BKD95EJXEx6Ff",
+  secret_key_base: "k+n3rNFBanLRTyl182JmCMVOQaDdbP2OGyow0ywcqDDuuFgzLu+BUt28KqA3TN93",
   render_errors: [view: FrontendWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Frontend.PubSub,
-  live_view: [signing_salt: "y/jXE5fd"]
+  live_view: [signing_salt: "gtUBDVEOZ98xvIKeFN9BKD95EJXEx6Ff"]
 
 # Configures Elixir's Logger
 config :logger, :console,
