@@ -37,7 +37,8 @@ defmodule FrontendWeb.Router do
     get "/signup", RegistrationController, :new
     post "/signup", RegistrationController, :create
 
-    get "/signin", AccountController, :index
+    get "/signin", SessionController, :new
+    post "/signin", SessionController, :create
   end
 
   # scope "/", FrontendWeb do
