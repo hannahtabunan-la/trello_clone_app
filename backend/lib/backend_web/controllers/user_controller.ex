@@ -16,8 +16,8 @@ defmodule BackendWeb.UserController do
     end
   end
 
-  def signin(conn, %{"username" => username, "password" => password}) do
-    with {:ok, user, token} <- Guardian.authenticate(username, password) do
+  def signin(conn, %{"email" => email, "password" => password}) do
+    with {:ok, user, token} <- Guardian.authenticate(email, password) do
       conn
       |> put_status(:created)
       |> render("user.json", %{user: user, token: token})

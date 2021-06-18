@@ -14,8 +14,8 @@ defmodule BackendWeb.Auth.Guardian do
     {:ok,  resource}
   end
 
-  def authenticate(username, password) do
-    with {:ok, user} <- Users.get_by_username(username) do
+  def authenticate(email, password) do
+    with {:ok, user} <- Users.get_by_email(email) do
       case validate_password(password, user.encrypted_password) do
         true ->
           create_token(user)

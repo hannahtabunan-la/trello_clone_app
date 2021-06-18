@@ -10,7 +10,7 @@ defmodule Backend.Schemas.User do
     field :name, :string
     field :password, :string, virtual: true
     field :encrypted_password, :string
-    field :username, :string
+    field :email, :string
     has_many :boards, Board  # Board relationship
     has_many :tasks, Task  # User relationship
     has_many :permissions, Permission  # User relationship
@@ -21,10 +21,10 @@ defmodule Backend.Schemas.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :name, :password])
-    |> validate_required([:username, :name, :password])
-    |> validate_format(:username, ~r/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
-    |> unique_constraint(:username)
+    |> cast(attrs, [:email, :name, :password])
+    |> validate_required([:email, :name, :password])
+    |> validate_format(:email, ~r/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
+    |> unique_constraint(:email)
     |> validate_length(:password, min: 6)
     |> put_hashed_password
   end
