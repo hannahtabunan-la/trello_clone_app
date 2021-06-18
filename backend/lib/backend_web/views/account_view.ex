@@ -3,11 +3,12 @@ defmodule BackendWeb.AccountView do
   alias BackendWeb.AccountView
 
   def render("account.json", %{user: user, token: token}) do
-    %{id: user.id,
-      username: user.username,
+    %{user: %{
+      id: user.id,
+      email: user.email,
       name: user.name,
-      token: token,
       inserted_at: NaiveDateTime.to_string(user.inserted_at),
-      updated_at: NaiveDateTime.to_string(user.updated_at)}
+      updated_at: NaiveDateTime.to_string(user.updated_at)
+    }, token: token}
   end
 end
