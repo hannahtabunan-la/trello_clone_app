@@ -33,8 +33,8 @@ defmodule BackendWeb.Router do
 
     get("/ping", PingController, :show)
 
-    post "/accounts/signup", AccountController, :create
-    post "/accounts/signin", AccountController, :signin
+    post "/signup", AccountController, :create
+    post "/signin", AccountController, :signin
   end
 
   scope "/api", BackendWeb do
