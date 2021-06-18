@@ -30,7 +30,7 @@ defmodule FrontendWeb do
    def view do
     quote do
       use Phoenix.View,
-        root: "lib/<%= lib_web_name %>/templates",
+        root: "lib/frontend_web/templates",
         namespace: FrontendWeb
 
       # Import convenience functions from controllers
