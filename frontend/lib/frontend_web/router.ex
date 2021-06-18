@@ -14,6 +14,10 @@ defmodule FrontendWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :unauthenticated do
+    plug FrontendWeb.Plugs.UnauthenticatedPipeline
+  end
+
   scope "/", FrontendWeb do
     pipe_through :browser
 

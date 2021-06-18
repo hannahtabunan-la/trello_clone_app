@@ -7,7 +7,7 @@ defmodule FrontendWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_frontend_key",
-    signing_salt: "c+BdnP4x"
+    signing_salt: "gtUBDVEOZ98xvIKeFN9BKD95EJXEx6Ff"
   ]
 
   socket "/socket", FrontendWeb.UserSocket,

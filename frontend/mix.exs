@@ -46,7 +46,10 @@ defmodule Frontend.MixProject do
       {:ecto, "~> 3.6.2" },
       {:phoenix_ecto, "~> 4.0"},
       {:tesla, "~> 1.4.0"},
-      {:hackney, "~> 1.13"}
+      {:hackney, "~> 1.13"},
+      {:guardian, "~> 1.0"},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"}
     ]
   end
 
