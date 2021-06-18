@@ -15,4 +15,4 @@ alias Backend.Repo
 alias Backend.Schemas.User
 
 # insert default user
-Repo.insert!(%User{username: "hannah.tabunan@lawadvisor.com", name: "hannah", password: "palindrome"})
+Repo.insert!(%User{email: "hannah.tabunan@lawadvisor.com", name: "hannah", password: "palindrome"})
