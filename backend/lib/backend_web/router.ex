@@ -30,6 +30,9 @@ defmodule BackendWeb.Router do
 
   scope "/api", BackendWeb do
     pipe_through :api
+
+    get("/ping", PingController, :show)
+
     post "/accounts/signup", AccountController, :create
     post "/accounts/signin", AccountController, :signin
   end
