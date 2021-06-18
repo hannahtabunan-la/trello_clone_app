@@ -28,3 +28,7 @@ config :tesla, adapter: Tesla.Adapter.Hackney
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+config :frontend, FrontendWeb.Auth.Guardian,
+  issuer: "frontend",
+  secret_key: "3jGG1/wGTvm/XVm3NbaXzX4XxajSQUuktvzD4K77LgviFY8VQ+4+DQ8Z51v5VC3g"
