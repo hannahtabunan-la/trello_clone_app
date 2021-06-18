@@ -30,7 +30,12 @@ defmodule FrontendWeb.Router do
   # end
 
   scope "/", FrontendWeb do
-    pipe_through :browser
+    pipe_through [:browser, :unauthenticated]
+
+    get("/ping", PingController, :show)
+
+    get "/signup", RegistrationController, :new
+    post "/signup", RegistrationController, :create
 
     get "/signin", AccountController, :index
   end
