@@ -1,6 +1,8 @@
 defmodule FrontendWeb.Router do
   use FrontendWeb, :router
 
+  import Phoenix.LiveView.Router
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -18,10 +20,14 @@ defmodule FrontendWeb.Router do
     plug FrontendWeb.Plugs.UnauthenticatedPipeline
   end
 
+  pipeline :authenticated do
+    plug FrontendWeb.Plugs.UnauthenticatedPipeline
+  end
+
   scope "/", FrontendWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", PageController, :new
   end
 
   # Other scopes may use custom stacks.
@@ -39,6 +45,14 @@ defmodule FrontendWeb.Router do
 
     get "/signin", SessionController, :new
     post "/signin", SessionController, :create
+  end
+
+  scope "/boards", FrontendWeb do
+    pipe_through [:browser, :unauthenticated]
+
+    # get("/ping", PingController, :show)
+
+    resources "/", BoardController
   end
 
   # scope "/", FrontendWeb do
