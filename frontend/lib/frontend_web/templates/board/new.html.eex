@@ -1,0 +1,7 @@
+<div class="grid grid-cols-1 place-items-end">
+    <div class="place-self-end">
+        <button class="btn btn-primary" phx-click="toggle_new"> Cancel </button>
+    </div>
+</div>
+
+
