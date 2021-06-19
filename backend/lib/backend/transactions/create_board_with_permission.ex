@@ -3,7 +3,6 @@ defmodule Backend.Transactions.CreateBoardWithPermission do
 
   alias Backend.Boards
   alias Backend.Permissions
-  alias Backend.Schemas.Permission
 
   def create(board) do
     Multi.new()
@@ -13,11 +12,6 @@ defmodule Backend.Transactions.CreateBoardWithPermission do
 
   defp create_board(attrs \\ %{}) do
     fn repo, _ ->
-      test = Boards.create_board(attrs)
-
-      IO.puts("++++create_board+++++")
-      IO.inspect(test)
-
       case Boards.create_board(attrs) do
         {:ok, board} -> {:ok, board}
         {:error, _board} -> {:error, :failed_create_board}
