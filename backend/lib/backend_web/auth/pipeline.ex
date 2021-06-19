@@ -1,5 +1,5 @@
 defmodule BackendWeb.Auth.Pipeline do
-  use Guardian.Plug.Pipeline, otp_app: :busi_api,
+  use Guardian.Plug.Pipeline, otp_app: :backend,
     module: BackendWeb.Auth.Guardian,
     error_handler: BackendWeb.AuthErrorHandler
 
