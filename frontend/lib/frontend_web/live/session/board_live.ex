@@ -1,6 +1,8 @@
 defmodule FrontendWeb.Live.BoardLive do
   use FrontendWeb, :live_view
 
+  alias Frontend.API.Boards
+
   def mount(_params, session, socket) do
     assigns = %{
       # access_token: session.access_token,
@@ -32,6 +34,32 @@ defmodule FrontendWeb.Live.BoardLive do
   def handle_event("toggle_new", _params, socket) do
     {:noreply, assign(socket, :view, :list)}
   end
+
+  def handle_event("create", %{"board" => board}, socket) do
+    case Boards.create_board(board) do
+      {:ok, _board} ->
+          {:noreply,
+          socket
+          |> put_flash(:info, "Board is successfully created.")}
+      {:error, _board} ->
+          {:noreply,
+          socket
+          |> put_flash(:error, "Failed to create board.")}
+    end
+
+    {:noreply, socket}
+  end
+
+  # defp fetch_boards(%{assigns: assigns} = socket, params) do
+  #   # access_token = socket.assigns.access_token
+  #   # params = Map.put(params, "access_token", access_token)
+
+  #   with {:ok, boards} <- Boards.all_boards(params) do
+  #     boards
+  #   else
+  #     result -> _result
+  #   end
+  # end
 
   # defp fetch(socket) do
   #     tasks = Tasks.list_tasks()
