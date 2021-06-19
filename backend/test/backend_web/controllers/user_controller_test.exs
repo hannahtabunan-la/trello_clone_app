@@ -1,23 +1,21 @@
 defmodule BackendWeb.UserControllerTest do
   use BackendWeb.ConnCase
 
-  alias Backend.Account
-  alias Backend.Account.User
+  alias Backend.Accounts
+  alias Backend.Accounts.User
 
   @create_attrs %{
-    name: "some name",
-    password: "some password",
+    encrypted_password: "some encrypted_password",
     username: "some username"
   }
   @update_attrs %{
-    name: "some updated name",
-    password: "some updated password",
+    encrypted_password: "some updated encrypted_password",
     username: "some updated username"
   }
-  @invalid_attrs %{name: nil, password: nil, username: nil}
+  @invalid_attrs %{encrypted_password: nil, username: nil}
 
   def fixture(:user) do
-    {:ok, user} = Account.create_user(@create_attrs)
+    {:ok, user} = Accounts.create_user(@create_attrs)
     user
   end
 
@@ -41,8 +39,7 @@ defmodule BackendWeb.UserControllerTest do
 
       assert %{
                "id" => id,
-               "name" => "some name",
-               "password" => "some password",
+               "encrypted_password" => "some encrypted_password",
                "username" => "some username"
              } = json_response(conn, 200)["data"]
     end
@@ -64,8 +61,7 @@ defmodule BackendWeb.UserControllerTest do
 
       assert %{
                "id" => id,
-               "name" => "some updated name",
-               "password" => "some updated password",
+               "encrypted_password" => "some updated encrypted_password",
                "username" => "some updated username"
              } = json_response(conn, 200)["data"]
     end
