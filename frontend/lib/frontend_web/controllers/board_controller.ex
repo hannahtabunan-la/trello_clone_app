@@ -29,8 +29,14 @@ defmodule FrontendWeb.BoardController do
   end
 
   def show(conn, %{"id" => id}) do
-    board = Boards.get_board!(id)
+    case Boards.get_board!(%{"board_id" => id}) do
+      {:ok, board} ->
     render(conn, "show.html", board: board)
+      {:error, _error} ->
+        conn
+        |> put_flash(:error, "Board does not exist.")
+        |> redirect(to: Routes.board_path(conn, :index))
+    end
   end
 
   def edit(conn, %{"id" => id}) do
