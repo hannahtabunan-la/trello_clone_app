@@ -27,4 +27,10 @@ defmodule Frontend.Schemas.Board do
   def changeset(struct, params \\ %{}) do
     cast(struct, params, @schema_fields)
   end
+
+  def create_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:name])
+    |> validate_required([:name])
+  end
 end

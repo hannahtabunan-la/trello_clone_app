@@ -13,7 +13,7 @@ defmodule FrontendWeb.BoardController do
 
   def new(conn, _params) do
     changeset = Boards.change_board(%Board{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, token: get_csrf_token())
   end
 
   def create(conn, %{"board" => board_params}) do
@@ -31,7 +31,7 @@ defmodule FrontendWeb.BoardController do
   def show(conn, %{"id" => id}) do
     case Boards.get_board!(%{"board_id" => id}) do
       {:ok, board} ->
-    render(conn, "show.html", board: board)
+        render(conn, "show.html", board: board)
       {:error, _error} ->
         conn
         |> put_flash(:error, "Board does not exist.")
