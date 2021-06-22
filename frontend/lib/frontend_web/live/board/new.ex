@@ -12,7 +12,9 @@ defmodule FrontendWeb.Live.Board.New do
       # current_user: session.current_user,
       changeset: Board.create_changeset(%Board{}),
       csrf_token: session["csrf_token"],
-      action: Routes.board_path(socket, :create)
+      action: Routes.board_path(socket, :create),
+      submit_handler: "create",
+      submit_disble_message: "Creating"
     }
 
     # if connected?(socket) do
@@ -27,14 +29,12 @@ defmodule FrontendWeb.Live.Board.New do
 
 
   def handle_event("create", %{"board" => board}, socket) do
-    IO.puts("+++++ HANDLE_EVENT CREATE +++++")
-
     case Boards.create_board(board) do
-      {:ok, _board} ->
+      {:ok, board} ->
           {:noreply,
           socket
-          |> put_flash(:info, "Board is successfully created.")}
-          |> redirect(to: Routes.board_response_path(socket, :show, board))
+          |> put_flash(:info, "Board is successfully created.")
+          |> redirect(to: Routes.board_path(socket, :show, board.id))}
       {:error, _board} ->
           {:noreply,
           socket
