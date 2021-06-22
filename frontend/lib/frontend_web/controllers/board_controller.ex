@@ -40,19 +40,25 @@ defmodule FrontendWeb.BoardController do
   end
 
   def edit(conn, %{"id" => id}) do
-    board = Boards.get_board!(id)
-    changeset = Boards.change_board(board)
-    render(conn, "edit.html", board: board, changeset: changeset)
+    case Boards.get_board!(%{"board_id" => id}) do
+      {:ok, board} ->
+        changeset = Boards.change_board(board)
+        render(conn, "edit.html", board: board, changeset: changeset, token: get_csrf_token())
+      {:error, _error} ->
+        conn
+        |> put_flash(:error, "Board does not exist.")
+        |> redirect(to: Routes.board_path(conn, :index))
+    end
   end
 
-  def update(conn, %{"id" => id, "board" => board_params}) do
+  def update(conn, %{"id" => id, "board" => params}) do
     board = Boards.get_board!(id)
 
-    case Boards.update_board(board, board_params) do
+    case Boards.update_board(id, params) do
       {:ok, board} ->
         conn
         |> put_flash(:info, "Board updated successfully.")
-        |> redirect(to: Routes.board_path(conn, :show, board))
+        |> redirect(to: Routes.board_path(conn, :show, id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", board: board, changeset: changeset)

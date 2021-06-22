@@ -57,6 +57,22 @@ defmodule Frontend.API.Boards do
     end
   end
 
+  def update_board(id, params) do
+    url = "/boards/:id"
+
+    with %{valid?: true} = changeset <- Board.changeset(%Board{}, params),
+         board <- Changeset.apply_changes(changeset),
+         client <- client(),
+         {:ok, %{body: body, status: status}} when status in @success_codes
+          <- Tesla.patch(client, url, %{"board" => board}, opts: [path_params: [id: id]]) do
+      {:ok, from_response(body)}
+    else
+      {:ok, %{body: body}} -> {:error, body}
+      %Changeset{} = changeset -> {:error, changeset}
+      error -> error
+    end
+  end
+
   defp from_response(response),
     do: %Board{} |> Board.changeset(response) |> Changeset.apply_changes()
 

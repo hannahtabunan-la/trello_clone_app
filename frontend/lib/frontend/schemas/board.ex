@@ -33,4 +33,10 @@ defmodule Frontend.Schemas.Board do
     |> cast(params, [:name])
     |> validate_required([:name])
   end
+
+  def update_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:name])
+    |> validate_required([:name])
+  end
 end

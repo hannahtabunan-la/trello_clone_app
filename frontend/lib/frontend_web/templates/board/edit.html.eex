@@ -1,5 +1,13 @@
-<h1>Edit Board</h1>
-
-<%= render "form.html", Map.put(assigns, :action, Routes.board_path(@conn, :update, @board)) %>
-
-<span><%= link "Back", to: Routes.board_path(@conn, :index) %></span>
+<h1>Update Board</h1>
+<div class="flex justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <%= live_render @conn, FrontendWeb.Live.Board.Edit,
+      session: %{
+        "board"   => @board,
+        "changeset" => @changeset,
+        "csrf_token" => @token
+      }
+    %>
+    </div>
+  </div>
+</div>
