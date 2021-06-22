@@ -16,37 +16,41 @@
     </tr>
 </thead>
 <tbody id="board_index" class="bg-white divide-y divide-gray-200">
-    <%= for board <- @boards do %>
-    <tr>
-        <td class="px-6 py-4 whitespace-nowrap">
-        <div class="flex items-center">
-            <i class="fab fa-trello text-violet-500"></i>
-            <div class="ml-4">
-            <div class="text-sm font-medium text-gray-900">
-                <%= board.name %>
-            </div>
-            </div>
-        </div>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap">
-        <div class="text-sm text-gray-900">Regional Paradigm Technician</div>
-        <div class="text-sm text-gray-500">Optimization</div>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap">
-        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-            Active
-        </span>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        Admin
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <%= link to: Routes.board_path(@socket, :edit, board) do %>
-            <i class="fa fa-edit text-indigo-600 hover:text-indigo-900"></i>
+    <%= if is_list(@boards) and @boards != [] do %>
+        <%= for board <- @boards do %>
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                    <i class="fab fa-trello text-violet-500"></i>
+                    <div class="ml-4">
+                    <div class="text-sm font-medium text-gray-900">
+                        <%= link to: Routes.board_path(@socket, :show, board.id) do %>
+                            <%= board.name %>
+                        <% end %>
+                    </div>
+                </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">Regional Paradigm Technician</div>
+                <div class="text-sm text-gray-500">Optimization</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    Active
+                </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                Admin
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <%= link to: Routes.board_path(@socket, :edit, board) do %>
+                    <i class="fa fa-edit text-indigo-600 hover:text-indigo-900"></i>
+                <% end %>
+                </td>
+            </tr>
         <% end %>
-        </td>
-    </tr>
+    <% else %>
+        <tr><td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center font-bold">No records found</td></tr>
     <% end %>
-
 </tbody>
 </table>
