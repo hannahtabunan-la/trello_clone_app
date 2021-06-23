@@ -16,19 +16,22 @@ defmodule FrontendWeb.SessionController do
     |> render("signin.html", changeset: changeset)
   end
 
-  def create(conn, %{"email" => email, "password" => password}) do
-    # case Session.create_session(params) do
-    #   {:ok, user} ->
-    #     conn
-    #     |> put_flash(:info, "Successfully logged in!")
-    #     |> redirect(to: Routes.ping_path(conn, :show))
+  def create(conn, %{"user" => user}) do
+    case Session.create_session(user) do
+      {:ok, %{user: user, token: token}} ->
+        conn
+        |> put_session(:user, user)
+        |> put_session(:token, token)
+        |> put_flash(:info, "Successfully logged in.")
+        |> redirect(to: Routes.board_path(conn, :index))
 
-    #   {:error, %Ecto.Changeset{} = changeset} ->
-    #     render(conn, "signin.html", changeset: changeset)
-
-    #   error ->
-    #     render(conn, "signin.html")
-    # end
+        IO.inspect(conn)
+      {:error, _params} ->
+        changeset = Session.change_user_signin(%User{})
+        conn
+        |> put_flash(:error, "Failed to log in.")
+        |> render("signin.html", changeset: changeset)
+    end
   end
 
   # def signup(conn, test) do
