@@ -1,5 +1,8 @@
-<%= live_render @conn, FrontendWeb.Live.Board.Show,
-  session: %{
-    "board" => @board
-  }
-%>
+<div class="board">
+  <%= live_render @conn, FrontendWeb.Live.Board.Show,
+    session: %{
+      "board" => @board,
+      "token" => @token
+    }
+  %>
+</div>
