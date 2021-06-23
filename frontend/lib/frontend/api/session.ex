@@ -15,11 +15,12 @@ defmodule Frontend.API.Session do
   def create_session(params) do
     url = "/signin"
 
-    with %{valid?: true} = changeset <- User.changeset(%User{}, params),
+    with %{valid?: true} = changeset <- User.signin_changeset(%User{}, params),
          user <- Changeset.apply_changes(changeset),
          client <- client(),
          {:ok, %{body: body, status: status}} when status in @success_codes
           <- Tesla.post(client, url, user) do
+          # %{"user"=>user, "token"=>token} = body
       {:ok, from_response(body)}
     else
       {:ok, %{body: body}} -> {:error, body}
@@ -33,7 +34,7 @@ defmodule Frontend.API.Session do
     |> User.changeset(user)
     |> Changeset.apply_changes()
 
-    %{"user": changeset, "token": token }
+    %{user: changeset, token: token }
   end
 
   def client() do
