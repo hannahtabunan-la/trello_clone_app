@@ -6,6 +6,11 @@ defmodule Frontend.API.Boards do
   alias Frontend.Schemas.Board
 
   @success_codes 200..399
+  @statuses [
+    :pending,
+    :in_progress,
+    :completed
+  ]
 
   def change_board(%Board{} = board, attrs \\ %{}) do
     Board.changeset(board, attrs)
@@ -19,7 +24,7 @@ defmodule Frontend.API.Boards do
          board <- Changeset.apply_changes(changeset),
          client <- client(),
          {:ok, %{body: body, status: status}} when status in @success_codes
-          <- Tesla.post(client, url, board) do
+          <- Tesla.post(client, url, %{"board" => board}) do
       {:ok, from_response(body)}
     else
       {:ok, %{body: body}} -> {:error, body}
@@ -85,4 +90,6 @@ defmodule Frontend.API.Boards do
 
     Tesla.client(middleware)
   end
+
+  def get_statuses, do: @statuses
 end
