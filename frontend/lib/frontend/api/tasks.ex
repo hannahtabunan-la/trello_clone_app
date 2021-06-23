@@ -62,11 +62,13 @@ defmodule Frontend.API.Tasks do
     end
   end
 
-  def update_task(id, params) do
+  def update_task(task, params, attrs \\ nil) do
     url = "/tasks/:id"
+    attrs = attrs || Task.update_attrs()
+    id = task.id
 
-    with %{valid?: true} = changeset <- Task.changeset(%Task{}, params),
-         task <- Changeset.apply_changes(changeset),
+    with %{valid?: true} = changeset <- Task.update_changeset(task, params, attrs),
+         task <- changeset.changes,
          client <- client(),
          {:ok, %{body: body, status: status}} when status in @success_codes
           <- Tesla.patch(client, url, %{"task" => task}, opts: [path_params: [id: id]]) do
