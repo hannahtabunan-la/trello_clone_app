@@ -31,6 +31,15 @@ defmodule Frontend.Schemas.Task do
     timestamps()
   end
 
+  @update_attrs [
+    :title,
+    :status,
+    :position,
+    :is_deleted
+  ]
+
+  def update_attrs, do: @update_attrs
+
   def changeset(struct, params \\ %{}) do
     cast(struct, params, @schema_fields)
   end
@@ -42,10 +51,9 @@ defmodule Frontend.Schemas.Task do
     |> validate_inclusion(:status, [:pending, :in_progress, :completed])
   end
 
-  def update_changeset(task, params \\ %{}) do
+  def update_changeset(task, params \\ %{}, update_attrs \\ @update_attrs) do
     task
-    |> cast(params, [:title, :status, :is_deleted])
-    |> validate_required([:title])
+    |> cast(params, update_attrs)
     |> validate_inclusion(:status, [:pending, :in_progress, :completed])
   end
 end
