@@ -6,6 +6,7 @@ defmodule Frontend.Schemas.User do
     :id,
     :name,
     :email,
+    :password,
     :inserted_at,
     :updated_at
   ]
@@ -15,7 +16,7 @@ defmodule Frontend.Schemas.User do
 
   @primary_key false
   schema "users" do
-    field :user_id, :id
+    field :id, :id
     field :name, :string
     field :password, :string, virtual: true
     field :email, :string
