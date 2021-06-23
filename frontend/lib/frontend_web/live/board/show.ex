@@ -133,7 +133,8 @@ defmodule FrontendWeb.Live.Board.Show do
     task = Map.put(task, "board_id", id)
 
     case Tasks.create_task(task) do
-      {:ok, task} ->
+      {:ok, _task} ->
+          socket = fetch(socket)
           {:noreply,
           socket
           |> put_flash(:info, "Task is successfully created.")}
