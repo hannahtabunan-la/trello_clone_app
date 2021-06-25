@@ -112,4 +112,13 @@ defmodule Backend.Boards do
   def change_board(%Board{} = board, attrs \\ %{}) do
     Board.changeset(board, attrs)
   end
+
+  def list_boards_based_on_permission(user_id) do
+    query = from b in Board,
+            join: u in assoc(b, :user),
+            join: p in assoc(b, :permissions),
+            where: p.user_id == ^user_id,
+            preload: [user: u, permissions: p]
+    Repo.all(query)
+  end
 end

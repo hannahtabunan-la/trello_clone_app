@@ -9,7 +9,10 @@ defmodule BackendWeb.BoardController do
   action_fallback BackendWeb.FallbackController
 
   def index(conn, _params) do
-    boards = Boards.list_boards()
+    # TODO: pass session user_id
+    user_id = 1
+
+    boards = Boards.list_boards_based_on_permission(user_id)
     render(conn, "index.json", boards: boards)
   end
 
