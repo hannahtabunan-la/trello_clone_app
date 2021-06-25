@@ -114,11 +114,12 @@ defmodule Backend.Tasks do
     Task.changeset(task, attrs)
   end
 
-  def list_tasks_not_deleted() do
+  def list_tasks_not_deleted(board_id) do
     query = from t in Task,
       join: u in assoc(t, :user),
       preload: [user: u],
-      where: t.is_deleted == :false
+      where: t.is_deleted == :false and
+             t.board_id == ^board_id
     Repo.all(query)
   end
 

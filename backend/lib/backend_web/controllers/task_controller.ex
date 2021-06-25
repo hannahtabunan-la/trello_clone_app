@@ -6,8 +6,10 @@ defmodule BackendWeb.TaskController do
 
   action_fallback BackendWeb.FallbackController
 
-  def index(conn, _params) do
-    tasks = Tasks.list_tasks_not_deleted()
+  def index(conn, %{"board_id" => board_id}) do
+    # TODO: Return error when board_id = nil
+
+    tasks = Tasks.list_tasks_not_deleted(board_id)
     render(conn, "index.json", tasks: tasks)
   end
 
