@@ -5,6 +5,7 @@ defmodule Backend.Schemas.User do
   alias Backend.Schemas.Board
   alias Backend.Schemas.Task
   alias Backend.Schemas.Permission
+  alias Backend.Schemas.List
 
   schema "users" do
     field :name, :string
@@ -14,6 +15,7 @@ defmodule Backend.Schemas.User do
     has_many :boards, Board  # Board relationship
     has_many :tasks, Task  # User relationship
     has_many :permissions, Permission  # User relationship
+    has_many :lists, List  # User relationship
 
     timestamps()
   end

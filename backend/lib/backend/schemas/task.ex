@@ -4,11 +4,11 @@ defmodule Backend.Schemas.Task do
 
   schema "tasks" do
     field :is_deleted, :boolean, default: false
-    field :status, Ecto.Enum, values: [:pending, :in_progress, :completed], default: :pending
     field :title, :string
     field :position, :decimal, default: 1.0
     belongs_to :board, Backend.Schemas.Board  # Board relationship
-    belongs_to :user, Backend.Schemas.User  # User relationship
+    belongs_to :user, Backend.Schemas.User, references: :user_id  # User relationship
+    belongs_to :list, Backend.Schemas.List  # List relationship
 
     timestamps()
   end
@@ -16,16 +16,15 @@ defmodule Backend.Schemas.Task do
   @doc false
   def create_changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :status, :is_deleted, :user_id, :board_id])
+    |> cast(attrs, [:title, :is_deleted, :user_id, :board_id, :list_id])
     |> validate_required([:title, :board_id])
-    |> validate_inclusion(:status, [:pending, :in_progress, :completed])
     |> assoc_constraint(:board)
   end
 
   def update_changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :status, :is_deleted])
+    |> cast(attrs, [:title, :is_deleted, :list_id])
     |> validate_required([:title])
-    |> validate_inclusion(:status, [:pending, :in_progress, :completed])
+    |> assoc_constraint(:list)
   end
 end
