@@ -1,7 +1,7 @@
 defmodule BackendWeb.PermissionController do
   use BackendWeb, :controller
 
-  alias Backend.Permission
+  alias Backend.Permissions
   alias Backend.Schemas.Permission
 
   action_fallback BackendWeb.FallbackController
