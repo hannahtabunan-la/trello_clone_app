@@ -110,4 +110,19 @@ defmodule Backend.Users do
         { :ok, user }
     end
   end
+
+  def list_users_with_board_permission(board_id) do
+    query = from u in User,
+            join: p in assoc(u, :permissions),
+            where: p.board_id == ^board_id
+    Repo.all(query)
+  end
+
+  def list_users_without_board_permission(board_id) do
+    query = from u in User,
+            join: p in Permission,
+            on: u.id == p.id,
+            where: p.board_id != board_id
+    Repo.all(query)
+  end
 end
