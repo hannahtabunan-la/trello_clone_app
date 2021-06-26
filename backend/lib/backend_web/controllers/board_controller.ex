@@ -1,10 +1,9 @@
 defmodule BackendWeb.BoardController do
   use BackendWeb, :controller
 
-  alias Backend.Repo
   alias Backend.Boards
   alias Backend.Schemas.Board
-  alias Backend.Transactions.CreateBoardWithPermission
+  alias Backend.Transactions.CreateBoard
 
   action_fallback BackendWeb.FallbackController
 
@@ -17,18 +16,15 @@ defmodule BackendWeb.BoardController do
   end
 
   def create(conn, %{"board" => board_params}) do
-    board_params = Map.put(board_params, "user_id", conn.assigns.current_user.id)
+    # board_params = Map.put(board_params, "user_id", conn.assigns.current_user.id)
+    board_params = Map.put(board_params, "user_id", 1)
 
-    with {:ok, %{:create_board => board}} <- Repo.transaction(CreateBoardWithPermission.create(board_params)) do
+    with {:ok, %{:create_board => board}} <- CreateBoard.create(board_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.board_path(conn, :show, board))
       |> render("show.json", board: board)
     end
-  end
-
-  def create_board() do
-
   end
 
   def show(conn, %{"id" => id}) do
