@@ -117,7 +117,8 @@ defmodule Backend.Tasks do
   def list_tasks_not_deleted(board_id) do
     query = from t in Task,
       join: u in assoc(t, :user),
-      preload: [user: u],
+      join: l in assoc(t, :list),
+      preload: [user: u, list: l],
       where: t.is_deleted == :false and
              t.board_id == ^board_id
     Repo.all(query)
