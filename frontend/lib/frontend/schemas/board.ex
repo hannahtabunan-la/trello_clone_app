@@ -39,4 +39,16 @@ defmodule Frontend.Schemas.Board do
     |> cast(params, [:name])
     |> validate_required([:name])
   end
+
+  def query_changeset(struct, params \\ %{}) do
+    types = %{
+      id: :id,
+      q: :string,
+      limit: :integer,
+      page: :integer
+    }
+
+    {struct, types}
+    |> cast(params, Map.keys(types))
+  end
 end
