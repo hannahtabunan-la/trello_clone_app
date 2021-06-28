@@ -33,12 +33,14 @@ defmodule Frontend.API.Tasks do
     end
   end
 
-  def all_tasks() do
+  def all_tasks(), do: {:error, "Board ID is required."}
+
+  def all_tasks(board_id) do
     url = "/tasks"
 
     with client <- client(),
          {:ok, %{body: body, status: status}} when status in @success_codes
-          <- Tesla.get(client, url) do
+          <- Tesla.get(client, url, query: [board_id: board_id]) do
       {:ok, Enum.map(body, &from_response/1)}
     else
       {:ok, %{body: body}} -> {:error, body}
