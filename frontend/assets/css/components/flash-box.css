@@ -1,0 +1,114 @@
+.flash-box {
+	 display: flex;
+	 justify-content: center;
+}
+ .flash-box.-live {
+	 visibility: hidden;
+}
+ .flash-box.-show {
+	 visibility: visible;
+}
+ .flash-box > .alert {
+	 display: flex;
+	 padding: 18px 30px 12px;
+	 box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, 0.17);
+	 border-radius: 4px;
+	 position: absolute;
+	 align-items: center;
+}
+ .flash-box > .alert.-success {
+	 background-color: green;
+	 -webkit-animation: slide-from-left 0.5s forwards;
+	 -webkit-animation-delay: 2s;
+	 animation: slide-from-left 0.5s forwards;
+	 left: -360px;
+	 bottom: 24px;
+	 min-width: 360px;
+	 max-width: 80vw;
+	 z-index: 1003;
+	 padding: 14px 16px 12px 0;
+}
+ .flash-box > .alert.-warning {
+	 background-color: orange;
+}
+ .flash-box > .alert.-error {
+	 background-color: red;
+	 -webkit-animation: slide-from-top 0.5s forwards;
+	 -webkit-animation-delay: 2s;
+	 animation: slide-from-top 0.5s forwards;
+	 padding-top: 12px;
+	 padding-left: 4px;
+	 top: 0;
+	 z-index: 1003;
+	 align-items: center;
+	 justify-content: center;
+	 width: 720px;
+}
+ .flash-box > .alert.-error:focus {
+	 outline-width: 0;
+}
+ .flash-box > .alert.-headless > .alert-header {
+	 display: none;
+}
+ .alert-header-icon {
+	 margin-right: 20px;
+	 text-align: center;
+}
+ .alert-header-icon > i {
+	 color: white;
+	 font-weight: bold;
+}
+ .alert-header {
+	 text-transform: uppercase;
+	 font-weight: bold;
+	 color: white;
+	 letter-spacing: 1px;
+	 margin-right: 30px;
+}
+ .alert-content {
+	 flex-grow: 1;
+	 text-align: left;
+	 color: white;
+	 font-size: 14px;
+}
+ .alert-resend {
+	 text-align: center;
+	 margin-left: 24px;
+	 border: 1px solid white;
+	 border-radius: 4px;
+	 padding: 2px 12px;
+}
+ .alert-resend > .link-alert-resend {
+	 font-weight: bold;
+	 color: white;
+	 font-size: 14px;
+}
+ .alert-close {
+	 text-align: center;
+}
+ .alert-close > .link-alert-close {
+	 font-weight: bold;
+	 color: white;
+	 font-size: 14px;
+}
+ @-webkit-keyframes slide-from-left {
+	 100% {
+		 left: 120px;
+	}
+}
+ @keyframes slide-from-left {
+	 100% {
+		 left: 120px;
+	}
+}
+ @-webkit-keyframes slide-from-top {
+	 100% {
+		 top: 72px;
+	}
+}
+ @keyframes slide-from-top {
+	 100% {
+		 top: 72px;
+	}
+}
+ 
