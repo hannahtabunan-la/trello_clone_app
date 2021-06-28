@@ -37,7 +37,7 @@ defmodule Frontend.API.Users do
     |> User.changeset(user)
     |> Changeset.apply_changes()
 
-    %{"user": changeset, "token": token }
+    %{user: changeset, token: token }
   end
 
   def client() do
