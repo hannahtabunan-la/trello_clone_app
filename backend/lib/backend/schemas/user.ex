@@ -16,6 +16,7 @@ defmodule Backend.Schemas.User do
     has_many :tasks, Task  # User relationship
     has_many :permissions, Permission  # User relationship
     has_many :lists, List  # User relationship
+    has_many :assigned_tasks, Task
 
     timestamps()
   end

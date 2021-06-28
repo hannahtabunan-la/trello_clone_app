@@ -21,7 +21,8 @@ defmodule Backend.Tasks do
   def list_tasks do
     query = from t in Task,
       join: u in assoc(t, :user),
-      preload: [user: u]
+      join: a in assoc(t, :assignee),
+      preload: [user: u, assignee: a]
     Repo.all(query)
   end
 
@@ -76,6 +77,8 @@ defmodule Backend.Tasks do
 
   """
   def update_task(%Task{} = task, attrs) do
+    IO.inspect(attrs)
+
     task
     |> Task.update_changeset(attrs)
     |> Repo.update()
@@ -116,11 +119,12 @@ defmodule Backend.Tasks do
 
   def list_tasks_not_deleted(board_id) do
     query = from t in Task,
-      join: u in assoc(t, :user),
-      join: l in assoc(t, :list),
-      preload: [user: u, list: l],
+      preload: [:user, :list, :assignee],
       where: t.is_deleted == :false and
              t.board_id == ^board_id
+
+    IO.inspect(query)
+
     Repo.all(query)
   end
 

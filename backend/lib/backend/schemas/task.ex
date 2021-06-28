@@ -7,8 +7,9 @@ defmodule Backend.Schemas.Task do
     field :title, :string
     field :position, :decimal, default: 1.0
     belongs_to :board, Backend.Schemas.Board  # Board relationship
-    belongs_to :user, Backend.Schemas.User, references: :user_id  # User relationship
+    belongs_to :user, Backend.Schemas.User  # User relationship
     belongs_to :list, Backend.Schemas.List  # List relationship
+    belongs_to :assignee, Backend.Schemas.User   # List relationship
 
     timestamps()
   end
@@ -23,8 +24,12 @@ defmodule Backend.Schemas.Task do
 
   def update_changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :is_deleted, :list_id])
+    |> cast(attrs, [:title, :is_deleted, :list_id, :assignee_id])
     |> validate_required([:title])
     |> assoc_constraint(:list)
   end
+
+  # def validate_assignee(task, attrs) do
+
+  # end
 end
