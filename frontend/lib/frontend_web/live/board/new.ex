@@ -8,7 +8,7 @@ defmodule FrontendWeb.Live.Board.New do
 
   def mount(_params, session, socket) do
     assigns = %{
-      # access_token: session.access_token,
+      access_token: session["access_token"],
       # current_user: session.current_user,
       changeset: Board.create_changeset(%Board{}),
       csrf_token: session["csrf_token"],
@@ -29,6 +29,8 @@ defmodule FrontendWeb.Live.Board.New do
 
 
   def handle_event("create", %{"board" => board}, socket) do
+    board = Map.put(board, "access_token", socket.assigns.access_token)
+
     case Boards.create_board(board) do
       {:ok, board} ->
           {:noreply,

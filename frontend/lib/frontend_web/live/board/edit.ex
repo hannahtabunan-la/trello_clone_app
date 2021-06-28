@@ -7,7 +7,7 @@ defmodule FrontendWeb.Live.Board.Edit do
 
   def mount(_params, session, socket) do
     assigns = %{
-      # access_token: session.access_token,
+      access_token: session["access_token"],
       # current_user: session.current_user,
       board: session["board"],
       changeset: session["changeset"],
@@ -30,9 +30,11 @@ defmodule FrontendWeb.Live.Board.Edit do
     IO.puts("HANDLE EVENT PUTS")
 
     id = socket.assigns.board.id
-    # board = Boards.get_board!(id)
+    access_token = socket.assigns.access_token
+    params = Map.put(params, "id", id)
+    params = Map.put(params, "access_token", access_token)
 
-    case Boards.update_board(id, params) do
+    case Boards.update_board(params) do
       {:ok, _board} ->
         {:noreply,
         socket

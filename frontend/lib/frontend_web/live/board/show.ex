@@ -34,7 +34,7 @@ defmodule FrontendWeb.Live.Board.Show do
     # access_token = socket.assigns.access_token
     # params = Map.put(params, "access_token", access_token)
 
-    with {:ok, tasks} <- Tasks.all_tasks() do
+    with {:ok, tasks} <- Tasks.all_tasks(socket.assigns.board.id) do
       tasks = tasks
       |> Enum.group_by(&Map.get(&1, :status))
 
