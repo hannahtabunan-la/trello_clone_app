@@ -1,7 +1,7 @@
 defmodule BackendWeb.BoardView do
   use BackendWeb, :view
   alias BackendWeb.BoardView
-  alias BackendWeb.UserView
+  # alias BackendWeb.UserView
 
   def render("index.json", %{boards: boards}) do
     render_many(boards, BoardView, "board.json")
