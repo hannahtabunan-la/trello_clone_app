@@ -4,20 +4,26 @@ defmodule FrontendWeb.BoardController do
   alias Frontend.Schemas.Board
   alias Frontend.API.Boards
 
-  def index(conn, _params) do
-    with {:ok, boards} <- Boards.all_boards() do
+  def index(conn, params) do
+    params = Map.put(params, "access_token", conn.private.plug_session["token"])
+
+    with {:ok, boards} <- Boards.all_boards(params) do
       changeset = Boards.change_board(%Board{})
       render(conn, "index.html", boards: boards, changeset: changeset)
     end
   end
 
   def new(conn, _params) do
+    access_token = conn.private.plug_session["token"]
+
     changeset = Boards.change_board(%Board{})
-    render(conn, "new.html", changeset: changeset, token: get_csrf_token())
+    render(conn, "new.html", changeset: changeset, token: get_csrf_token(), access_token: access_token)
   end
 
-  def create(conn, %{"board" => board_params}) do
-    case Boards.create_board(board_params) do
+  def create(conn, params) do
+    params = Map.put(params, "access_token", conn.private.plug_session["token"])
+
+    case Boards.create_board(params) do
       {:ok, board} ->
         conn
         |> put_flash(:info, "Board created successfully.")
@@ -28,8 +34,10 @@ defmodule FrontendWeb.BoardController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    case Boards.get_board!(%{"board_id" => id}) do
+  def show(conn, params) do
+    params = Map.put(params, "access_token", conn.private.plug_session["token"])
+
+    case Boards.get_board!(params) do
       {:ok, board} ->
         render(conn, "show.html", board: board, token: get_csrf_token())
       {:error, _error} ->
@@ -39,11 +47,14 @@ defmodule FrontendWeb.BoardController do
     end
   end
 
-  def edit(conn, %{"id" => id}) do
-    case Boards.get_board!(%{"board_id" => id}) do
+  def edit(conn, params) do
+    access_token = conn.private.plug_session["token"]
+    params = Map.put(params, "access_token", access_token)
+
+    case Boards.get_board!(params) do
       {:ok, board} ->
         changeset = Boards.change_board(board)
-        render(conn, "edit.html", board: board, changeset: changeset, token: get_csrf_token())
+        render(conn, "edit.html", board: board, changeset: changeset, token: get_csrf_token(), access_token: access_token)
       {:error, _error} ->
         conn
         |> put_flash(:error, "Board does not exist.")
