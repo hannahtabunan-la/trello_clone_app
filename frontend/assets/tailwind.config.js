@@ -44,7 +44,15 @@ module.exports = {
       'violet-700': '#68527A',
       'violet-500': '#826599',
       'yellow': '#E3D26F'
-     })
+     }),
+     borderColor: theme => ({
+      ...theme('colors'),
+     'violet': '#6c5b7b',
+     'violet-800': '#625071',
+     'violet-700': '#68527A',
+     'violet-500': '#826599',
+     'yellow': '#E3D26F'
+    })
   },
   variants: {
     extend: {},
