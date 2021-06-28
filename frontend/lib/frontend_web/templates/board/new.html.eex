@@ -4,7 +4,8 @@
     <%= live_render @conn, FrontendWeb.Live.Board.New,
       session: %{
         "changeset" => @changeset,
-        "csrf_token" => @token
+        "csrf_token" => @token,
+        "access_token" => @access_token
       }
     %>
     </div>
