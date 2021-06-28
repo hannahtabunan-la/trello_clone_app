@@ -1,5 +1,6 @@
 <div class="dropzone" id="<%= @drop_zone_id %>">
     <%= @title %>
+    <hr/>
     <%= for %{title: title, id: id} <- @draggables do %>
         <div draggable="true" id="<%= id %>" class="draggable"><%= title %></div>
     <% end %>
