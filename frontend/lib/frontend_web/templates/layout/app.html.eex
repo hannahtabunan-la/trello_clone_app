@@ -21,12 +21,9 @@
   </head>
   <body>
     <main role="main" class="container">
-      <h1 class="text-4xl font-bold text-center">Trello</h1>
+      <%# TODO: Hide if no current user%>
+      <%= render("navbar.html", assigns) %>
       <hr/>
-      <div class="grid grid-cols-1 place-items-end">
-          <div class="place-self-end">
-          </div>
-      </div>
       <%= @inner_content %>
     </main>
   </body>
