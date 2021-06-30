@@ -43,9 +43,9 @@
                 Admin
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <%= link to: Routes.board_path(@socket, :edit, board) do %>
-                    <i class="fa fa-edit text-indigo-600 hover:text-indigo-900"></i>
-                <% end %>
+                     <%= link to: Routes.board_path(@socket, :show, board.id), class: "btn-btn-primary" do %>
+                        View Board
+                    <% end %>
                 </td>
             </tr>
         <% end %>
