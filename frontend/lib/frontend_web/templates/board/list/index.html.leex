@@ -1,0 +1,5 @@
+<div phx-hook="ListDrag" id="list_drag">
+    <%= live_component @socket, FrontendWeb.Live.Components.List.DropZoneComponent,
+        draggables: @lists
+    %>
+</div>
