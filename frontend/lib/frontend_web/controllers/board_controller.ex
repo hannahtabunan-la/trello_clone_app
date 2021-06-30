@@ -5,11 +5,13 @@ defmodule FrontendWeb.BoardController do
   alias Frontend.API.Boards
 
   def index(conn, params) do
-    params = Map.put(params, "access_token", conn.private.plug_session["token"])
+    access_token = conn.private.plug_session["token"]
+    params = Map.put(params, "access_token", access_token)
 
     with {:ok, boards} <- Boards.all_boards(params) do
       changeset = Boards.change_board(%Board{})
-      render(conn, "index.html", boards: boards, changeset: changeset)
+
+      render(conn, "index.html", boards: boards, token: get_csrf_token(), changeset: changeset, access_token: access_token)
     end
   end
 
