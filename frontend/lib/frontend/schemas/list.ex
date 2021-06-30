@@ -3,6 +3,7 @@ defmodule Frontend.Schemas.List do
   import Ecto.Changeset
 
   @schema_fields [
+    :id,
     :title,
     :position,
     :is_deleted,
@@ -15,6 +16,7 @@ defmodule Frontend.Schemas.List do
 
   @primary_key false
   schema "lists" do
+    field :id, :id
     field :is_deleted, :boolean, default: false
     field :title, :string
     field :position, :decimal, default: 1.0
