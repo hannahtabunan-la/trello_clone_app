@@ -36,11 +36,11 @@ defmodule Frontend.API.Lists do
 
   def all_lists(params) do
     url = "/lists"
-    {access_token, _params} = Map.pop(params, "access_token")
+    {access_token, params} = Map.pop(params, "access_token")
 
     with client <- client(access_token),
          {:ok, %{body: body, status: status}} when status in @success_codes
-          <- Tesla.get(client, url) do
+          <- Tesla.get(client, url, query: %{board_id: params.board_id}) do
       {:ok, Enum.map(body, &from_response/1)}
     else
       {:ok, %{body: body}} -> {:error, body}
