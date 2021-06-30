@@ -17,7 +17,7 @@
 	 align-items: center;
 }
  .flash-box > .alert.-success {
-	 background-color: green;
+	 background-color:#12664F;
 	 -webkit-animation: slide-from-left 0.5s forwards;
 	 -webkit-animation-delay: 2s;
 	 animation: slide-from-left 0.5s forwards;
@@ -29,10 +29,10 @@
 	 padding: 14px 16px 12px 0;
 }
  .flash-box > .alert.-warning {
-	 background-color: orange;
+	 background-color: #F7C59F;
 }
  .flash-box > .alert.-error {
-	 background-color: red;
+	 background-color: #F26165;
 	 -webkit-animation: slide-from-top 0.5s forwards;
 	 -webkit-animation-delay: 2s;
 	 animation: slide-from-top 0.5s forwards;
