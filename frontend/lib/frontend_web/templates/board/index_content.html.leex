@@ -1,3 +1,21 @@
+<div class="grid grid-cols-1 place-items-end">
+    <div class="place-self-end">
+        <button class="btn btn-primary" phx-click="new_board">
+          <%# <i class="material-icons-outlined icon _font-lm">edit</i> %>
+          Create Board
+        </button>
+        <%= if @modal == :new do %>
+            <%= live_render @socket, FrontendWeb.Live.Board.New,
+                id: "board-new-modal",
+                session: %{
+                    "access_token" => @access_token,
+                    "csrf_token" => @csrf_token
+                }
+            %>
+        <% end %>
+    </div>
+</div>
+
 <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

@@ -1,11 +1,7 @@
-<div class="grid grid-cols-1 place-items-end">
-    <div class="place-self-end">
-        <%= link "Create Board", to: Routes.board_path(@conn, :new), class: "btn btn-primary" %>
-    </div>
-</div>
-
 <%= live_render @conn, FrontendWeb.Live.Board.Index,
   session: %{
-    "boards" => @boards
+    "boards" => @boards,
+    "access_token" => @access_token,
+    "csrf_token" => @token
   }
 %>

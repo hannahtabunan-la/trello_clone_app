@@ -1,0 +1,53 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="modal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="modal-container">
+    <!--
+      Background overlay, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+    <!-- This element is to trick the browser into centering the modal contents. -->
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+    <!--
+      Modal panel, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        To: "opacity-100 translate-y-0 sm:scale-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100 translate-y-0 sm:scale-100"
+        To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+    -->
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Edit Board</h3>
+      </div>
+      <div class="modal-body">
+        <%= f = form_for @changeset, "#", [phx_submit: @submit_handler, csrf_token: @csrf_token]%>
+          <%= if @changeset.action do %>
+            <div class="alert alert-danger">
+              <p>Oops, something went wrong! Please check the errors below.</p>
+            </div>
+          <% end %>
+          <div class="form-group">
+            <%= label f, :name, class: "form-label" %>
+            <%= text_input f, :name, class: "form-control" %>
+            <%= error_tag f, :name %>
+          </div>
+          <div class="form-actions">
+            <%= submit "Create", phx_disable_with: @submit_disble_message, class: "btn btn-primary" %>
+            <button type="button" class="btn btn-default" phx-click="close_modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -25,10 +25,12 @@ defmodule FrontendWeb.Live.Board.New do
   end
 
   def render(assigns),
-    do: Phoenix.View.render(FrontendWeb.BoardView, "form.html", assigns)
+    do: Phoenix.View.render(FrontendWeb.BoardView, "new_modal.html", assigns)
 
 
   def handle_event("create", %{"board" => board}, socket) do
+    IO.puts("HANDLE EVENT CREATE")
+
     board = Map.put(board, "access_token", socket.assigns.access_token)
 
     case Boards.create_board(board) do
@@ -42,5 +44,11 @@ defmodule FrontendWeb.Live.Board.New do
           socket
           |> put_flash(:error, "Failed to create board.")}
     end
+  end
+
+  def handle_event("close_modal", _param, socket) do
+    Phoenix.PubSub.broadcast(Frontend.PubSub, "board", {nil, "close_modal", nil})
+
+    {:noreply, assign(socket, modal: nil)}
   end
 end
