@@ -2,7 +2,8 @@
   <%= live_render @conn, FrontendWeb.Live.Board.Show,
     session: %{
       "board" => @board,
-      "token" => @token
+      "token" => @token,
+      "access_token" => @access_token
     }
   %>
 </div>

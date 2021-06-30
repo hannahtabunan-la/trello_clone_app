@@ -14,17 +14,19 @@ defmodule FrontendWeb.Live.Board.Show do
     id = session["board"].id
 
     assigns = %{
-      # access_token: session.access_token,
+      access_token: session["access_token"],
       # current_user: session.current_user,
       board: session["board"],
       csrf_token: session["token"],
       statuses: Boards.get_statuses(),
-      changeset: Task.create_changeset(%Task{}, %{"board_id" => id})
+      changeset: Task.create_changeset(%Task{}, %{"board_id" => id}),
+      modal: nil
     }
 
-    # if connected?(socket) do
-    #   send(self(), :load)
-    # end
+    if connected?(socket) do
+      # send(self(), :load)
+      Phoenix.PubSub.subscribe(Frontend.PubSub, "board:#{id}")
+    end
     socket = assign(socket, assigns)
 
     {:ok, fetch(socket)}
@@ -143,5 +145,19 @@ defmodule FrontendWeb.Live.Board.Show do
           socket
           |> put_flash(:error, "Failed to create task.")}
     end
+  end
+
+  def handle_event("edit_board", _params, socket) do
+    {:noreply, assign(socket, modal: :edit)}
+  end
+
+  @impl true
+  def handle_info({_subject, "update_board", payload: %{board: board}}, socket) do
+    # changeset = Board.update_changeset(board)
+    {:noreply, assign(socket, board: board, modal: nil)}
+  end
+
+  def handle_info({_event, "close_modal", _data}, socket) do
+    {:noreply, assign(socket, modal: nil)}
   end
 end

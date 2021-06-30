@@ -37,11 +37,12 @@ defmodule FrontendWeb.BoardController do
   end
 
   def show(conn, params) do
-    params = Map.put(params, "access_token", conn.private.plug_session["token"])
+    access_token = conn.private.plug_session["token"]
+    params = Map.put(params, "access_token", access_token)
 
     case Boards.get_board!(params) do
       {:ok, board} ->
-        render(conn, "show.html", board: board, token: get_csrf_token())
+        render(conn, "show.html", board: board, token: get_csrf_token(), access_token: access_token)
       {:error, _error} ->
         conn
         |> put_flash(:error, "Board does not exist.")
