@@ -22,7 +22,7 @@ defmodule Frontend.API.Auth do
 
   def client() do
     middleware = [
-      {Tesla.Middleware.BaseUrl, "http://localhost:4000/api"},
+      {Tesla.Middleware.BaseUrl, "http://localhost:7000/api"},
       Tesla.Middleware.JSON
     ]
 

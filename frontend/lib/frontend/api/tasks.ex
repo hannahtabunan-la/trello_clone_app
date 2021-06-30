@@ -86,8 +86,10 @@ defmodule Frontend.API.Tasks do
     do: %Task{} |> Task.changeset(response) |> Changeset.apply_changes()
 
   def client() do
+    url = Application.get_env(:frontend, :api_url)
+
     middleware = [
-      {Tesla.Middleware.BaseUrl, "http://localhost:4000/api"},
+      {Tesla.Middleware.BaseUrl, url},
       Tesla.Middleware.JSON,
       Tesla.Middleware.PathParams
     ]

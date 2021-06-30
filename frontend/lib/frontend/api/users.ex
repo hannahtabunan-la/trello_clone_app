@@ -41,8 +41,10 @@ defmodule Frontend.API.Users do
   end
 
   def client() do
+    url = Application.get_env(:frontend, :api_url)
+
     middleware = [
-      {Tesla.Middleware.BaseUrl, "http://localhost:4000/api"},
+      {Tesla.Middleware.BaseUrl, url},
       Tesla.Middleware.JSON
     ]
 

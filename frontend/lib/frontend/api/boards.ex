@@ -89,8 +89,12 @@ defmodule Frontend.API.Boards do
     do: %Board{} |> Board.changeset(response) |> Changeset.apply_changes()
 
   def client(access_token) do
+    url = Application.get_env(:frontend, :api_url)
+
+    IO.inspect(url)
+
     middleware = [
-      {Tesla.Middleware.BaseUrl, "http://localhost:4000/api"},
+      {Tesla.Middleware.BaseUrl, url},
       Tesla.Middleware.JSON,
       Tesla.Middleware.PathParams,
       {Tesla.Middleware.Headers, [{"Authorization", "Bearer #{access_token}"}]},
