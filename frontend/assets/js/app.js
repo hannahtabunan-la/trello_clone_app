@@ -17,8 +17,9 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import LiveSocket from "phoenix_live_view"
 import Drag from './dragHook';
+import ListDrag from './listDragHook';
 
-const Hooks = { Drag: Drag };
+const Hooks = { Drag: Drag, ListDrag: ListDrag };
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
