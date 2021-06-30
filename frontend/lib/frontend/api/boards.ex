@@ -17,11 +17,11 @@ defmodule Frontend.API.Boards do
   end
 
   def create_board(params) do
-    IO.puts("+++++ BOARDS_API CREATE +++++")
+    IO.puts("+++++ BOARDS_API_CREATE +++++")
     url = "/boards"
     {access_token, params} = Map.pop(params, "access_token")
 
-    with %{valid?: true} = changeset <- Board.changeset(%Board{}, params),
+    with %{valid?: true} = changeset <- Board.create_changeset(%Board{}, params),
          board <- Changeset.apply_changes(changeset),
          client <- client(access_token),
          {:ok, %{body: body, status: status}} when status in @success_codes
@@ -90,8 +90,6 @@ defmodule Frontend.API.Boards do
 
   def client(access_token) do
     url = Application.get_env(:frontend, :api_url)
-
-    IO.inspect(url)
 
     middleware = [
       {Tesla.Middleware.BaseUrl, url},
