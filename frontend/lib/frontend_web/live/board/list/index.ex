@@ -10,7 +10,9 @@ defmodule FrontendWeb.Live.Board.List.Index do
       board: session["board"],
       csrf_token: session["csrf_token"],
       view: :list,
-      modal: nil
+      modal_list: nil,
+      list_id: nil,
+      list: nil
     }
 
     # if connected?(socket) do
@@ -18,22 +20,19 @@ defmodule FrontendWeb.Live.Board.List.Index do
     # end
 
     if connected?(socket) do
-
-
-      # Phoenix.PubSub.subscribe(Frontend.PubSub, "list")
+      Phoenix.PubSub.subscribe(Frontend.PubSub, "list")
     end
 
-    fetch(assign(socket, assigns))
+    fetch_list(assign(socket, assigns))
   end
 
-  defp fetch(socket) do
+  defp fetch_list(socket) do
     board_id = socket.assigns.board.id
     access_token = socket.assigns.access_token
     params = %{access_token: access_token, board_id: board_id}
 
     case Lists.all_lists(params) do
       {:ok, lists} ->
-        IO.inspect(lists)
         {:ok, assign(socket, lists: lists)}
       {:error, _lists} ->
         {:ok, socket |> put_flash(:error, "Failed to fetch lists.")}
@@ -61,7 +60,7 @@ defmodule FrontendWeb.Live.Board.List.Index do
 
     case Lists.update_list(params) do
       {:ok, list} ->
-        Phoenix.PubSub.broadcast(Frontend.PubSub, "list:#{id}", {"list:#{id}", "update_list", payload: %{list: list}})
+        Phoenix.PubSub.broadcast(Frontend.PubSub, "list", {"list", "update_list", payload: %{list: list}})
 
         {:noreply,
         socket
@@ -69,5 +68,40 @@ defmodule FrontendWeb.Live.Board.List.Index do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
+  end
+
+  def handle_event("edit_list", %{"id" => id}, socket) do
+    assigns = %{
+      modal_list: :edit,
+      list_id: id
+    }
+
+    {:noreply, assign(socket, assigns)}
+
+    # fetch(assign(socket, assigns))
+  end
+
+  def fetch(socket) do
+    id = socket.assigns.list_id
+    access_token = socket.assigns.access_token
+    params = %{access_token: access_token, id: id}
+
+    case Lists.get_list!(params) do
+      {:ok, list} ->
+        IO.inspect(list)
+        {:noreply, assign(socket, list: list)}
+      {:error, _lists} ->
+        IO.puts("LIIIIIST")
+        {:noreply, socket |> put_flash(:error, "Failed to fetch list.")}
+    end
+  end
+
+  def handle_info({_subject, "update_list", payload: %{list: _list}}, socket) do
+    # changeset = Board.update_changeset(list)
+    {:noreply, assign(socket, modal: nil)}
+  end
+
+  def handle_info({_event, "close_modal", _data}, socket) do
+    {:noreply, assign(socket, modal: nil)}
   end
 end

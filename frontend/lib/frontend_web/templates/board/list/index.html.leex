@@ -3,3 +3,15 @@
         draggables: @lists
     %>
 </div>
+
+<%= if @modal_list == :edit do %>
+    <%= live_render @socket, FrontendWeb.Live.Board.List.Edit,
+        id: "list-edit-modal",
+        session: %{
+            "access_token" => @access_token,
+            "csrf_token" => @csrf_token,
+            "list_id" => @list_id,
+            "list" => @list
+        }
+    %>
+<% end %>
