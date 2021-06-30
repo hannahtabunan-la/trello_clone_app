@@ -14,3 +14,12 @@
         <% end %>
     </div>
 </div>
+
+<%= live_render @socket, FrontendWeb.Live.Board.List.Index,
+    id: "list-index",
+    session: %{
+        "access_token" => @access_token,
+        "csrf_token" => @csrf_token,
+        "board" => @board
+    }
+%>
