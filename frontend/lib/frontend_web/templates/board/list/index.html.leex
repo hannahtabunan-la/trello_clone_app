@@ -1,6 +1,9 @@
 <div phx-hook="ListDrag" id="list_drag">
     <%= live_component @socket, FrontendWeb.Live.Components.List.DropZoneComponent,
-        draggables: @lists
+        draggables: @lists,
+        access_token: @access_token,
+        csrf_token: @csrf_token,
+        board_id: @board.id
     %>
 </div>
 
@@ -11,7 +14,7 @@
             "access_token" => @access_token,
             "csrf_token" => @csrf_token,
             "list_id" => @list_id,
-            "list" => @list
+            "list" => @list,
         }
     %>
 <% end %>
