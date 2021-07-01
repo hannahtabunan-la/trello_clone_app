@@ -29,7 +29,7 @@ defmodule FrontendWeb.Live.Board.List.Index do
   defp fetch_list(socket) do
     board_id = socket.assigns.board.id
     access_token = socket.assigns.access_token
-    params = %{access_token: access_token, board_id: board_id}
+    params = %{"access_token" => access_token, "board_id" => board_id}
 
     case Lists.all_lists(params) do
       {:ok, lists} -> assign(socket, lists: lists)
@@ -58,7 +58,7 @@ defmodule FrontendWeb.Live.Board.List.Index do
 
     case Lists.update_list(params) do
       {:ok, list} ->
-        Phoenix.PubSub.broadcast(Frontend.PubSub, "list", {"list", "update_list", payload: %{list: list}})
+        Phoenix.PubSub.broadcast(Frontend.PubSub, "list", {"list", "update", payload: %{list: list}})
 
         {:noreply,
         socket
@@ -105,5 +105,11 @@ defmodule FrontendWeb.Live.Board.List.Index do
     IO.puts("LIST INDEX - CLOSE MODAL")
 
     {:noreply, assign(socket, modal: nil)}
+  end
+
+  def handle_info({_subject, "create", payload: %{list: _list}}, socket) do
+    # changeset = Board.update_changeset(list)
+    # test = Enum.find(socket.assigns.lists)
+    {:noreply, fetch_list(socket)}
   end
 end
