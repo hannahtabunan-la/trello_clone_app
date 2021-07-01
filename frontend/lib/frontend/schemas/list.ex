@@ -34,8 +34,8 @@ defmodule Frontend.Schemas.List do
 
   def create_changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :position])
-    |> validate_required([:title])
+    |> cast(params, [:title, :position, :board_id])
+    |> validate_required([:title, :board_id])
   end
 
   def update_changeset(struct, params \\ %{}) do
