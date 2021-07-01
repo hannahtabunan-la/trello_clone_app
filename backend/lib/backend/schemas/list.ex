@@ -11,7 +11,8 @@ defmodule Backend.Schemas.List do
   ]
 
   @required [
-    :title
+    :title,
+    :board_id
   ]
 
   schema "lists" do
