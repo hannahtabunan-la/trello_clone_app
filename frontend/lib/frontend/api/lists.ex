@@ -17,7 +17,7 @@ defmodule Frontend.API.Lists do
   end
 
   def create_list(params) do
-    IO.puts("+++++ BOARDS_API_CREATE +++++")
+    IO.puts("+++++ LISTS_API_CREATE +++++")
     url = "/lists"
     {access_token, params} = Map.pop(params, "access_token")
 
@@ -40,7 +40,7 @@ defmodule Frontend.API.Lists do
 
     with client <- client(access_token),
          {:ok, %{body: body, status: status}} when status in @success_codes
-          <- Tesla.get(client, url, query: %{board_id: params.board_id}) do
+          <- Tesla.get(client, url, query: params) do
       {:ok, Enum.map(body, &from_response/1)}
     else
       {:ok, %{body: body}} -> {:error, body}
