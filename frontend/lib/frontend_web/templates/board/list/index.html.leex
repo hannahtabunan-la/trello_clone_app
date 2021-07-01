@@ -4,7 +4,7 @@
     %>
 </div>
 
-<%= if @modal_list == :edit do %>
+<%= if @modal == :edit do %>
     <%= live_render @socket, FrontendWeb.Live.Board.List.Edit,
         id: "list-edit-modal",
         session: %{

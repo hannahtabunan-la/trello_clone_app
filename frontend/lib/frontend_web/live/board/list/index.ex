@@ -10,7 +10,7 @@ defmodule FrontendWeb.Live.Board.List.Index do
       board: session["board"],
       csrf_token: session["csrf_token"],
       view: :list,
-      modal_list: nil,
+      modal: nil,
       list_id: nil,
       list: nil
     }
@@ -23,7 +23,7 @@ defmodule FrontendWeb.Live.Board.List.Index do
       Phoenix.PubSub.subscribe(Frontend.PubSub, "list")
     end
 
-    fetch_list(assign(socket, assigns))
+    {:ok, fetch_list(assign(socket, assigns))}
   end
 
   defp fetch_list(socket) do
@@ -32,10 +32,8 @@ defmodule FrontendWeb.Live.Board.List.Index do
     params = %{access_token: access_token, board_id: board_id}
 
     case Lists.all_lists(params) do
-      {:ok, lists} ->
-        {:ok, assign(socket, lists: lists)}
-      {:error, _lists} ->
-        {:ok, socket |> put_flash(:error, "Failed to fetch lists.")}
+      {:ok, lists} -> assign(socket, lists: lists)
+      {:error, _lists} -> socket |> put_flash(:error, "Failed to fetch lists.")
     end
   end
 
@@ -72,7 +70,7 @@ defmodule FrontendWeb.Live.Board.List.Index do
 
   def handle_event("edit_list", %{"id" => id}, socket) do
     assigns = %{
-      modal_list: :edit,
+      modal: :edit,
       list_id: id
     }
 
@@ -96,12 +94,16 @@ defmodule FrontendWeb.Live.Board.List.Index do
     end
   end
 
-  def handle_info({_subject, "update_list", payload: %{list: _list}}, socket) do
+  def handle_info({_subject, "update", payload: %{list: _list}}, socket) do
     # changeset = Board.update_changeset(list)
-    {:noreply, assign(socket, modal: nil)}
+    # test = Enum.find(socket.assigns.lists)
+    socket = assign(socket, modal: nil)
+    {:noreply, fetch_list(socket)}
   end
 
   def handle_info({_event, "close_modal", _data}, socket) do
+    IO.puts("LIST INDEX - CLOSE MODAL")
+
     {:noreply, assign(socket, modal: nil)}
   end
 end

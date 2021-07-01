@@ -34,31 +34,24 @@ defmodule FrontendWeb.Live.Board.List.Edit do
   def render(assigns),
     do: Phoenix.View.render(FrontendWeb.Board.ListView, "edit_modal.html", assigns)
 
-  def handle_event("update", %{"board" => params}, socket) do
+  def handle_event("update", %{"list" => params}, socket) do
     IO.puts("HANDLE EVENT PUTS")
 
-    id = socket.assigns.board.id
+    id = socket.assigns.list.id
     access_token = socket.assigns.access_token
     params = Map.put(params, "id", id)
     params = Map.put(params, "access_token", access_token)
 
     case Lists.update_list(params) do
       {:ok, list} ->
-        Phoenix.PubSub.broadcast(Frontend.PubSub, "list", {"list", "update_list", payload: %{list: list}})
+        Phoenix.PubSub.broadcast(Frontend.PubSub, "list", {"list", "update", payload: %{list: list}})
 
         {:noreply,
         socket
-        |> put_flash(:info, "Board updated successfully.")}
+        |> put_flash(:info, "List updated successfully.")}
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
-  end
-
-  def handle_event("close_modal", _param, socket) do
-    # id = socket.assigns.list.id
-    Phoenix.PubSub.broadcast(Frontend.PubSub, "list", {nil, "close_modal", nil})
-
-    {:noreply, assign(socket, modal: nil)}
   end
 
   def fetch(socket) do
@@ -79,5 +72,12 @@ defmodule FrontendWeb.Live.Board.List.Edit do
       {:error, _lists} ->
         {:ok, socket |> put_flash(:error, "Failed to fetch list.")}
     end
+  end
+
+  def handle_event("close_modal", _param, socket) do
+    # id = socket.assigns.board.id
+    Phoenix.PubSub.broadcast(Frontend.PubSub, "list", {nil, "close_modal", nil})
+
+    {:noreply, assign(socket, modal: nil)}
   end
 end
