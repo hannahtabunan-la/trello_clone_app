@@ -1,6 +1,6 @@
 <div class="list-dropzone flex">
     <%= for %{title: title, id: id, position: position} <- @draggables do %>
-        <div draggable="true" id="<%= id %>" class="draggable board-col bg-indigo-500 flex-grow mx-2 my-2" data-position="<%= position %>">
+        <div draggable="true" id="<%= id %>" class="list-draggable board-col" data-position="<%= position %>">
             <div class="flex">
                 <div class="flex-grow"><span class="capitalize mb-4"><%= title %></span></div>
                 <div>

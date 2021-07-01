@@ -13,7 +13,7 @@ export default {
             delay: 50,
             delayOnTouchOnly: true,
             // group: 'shared',
-            draggable: '.draggable',
+            draggable: '.list-draggable',
             ghostClass: 'sortable-ghost',
             onEnd: function (e) {
                 const el = e.item
