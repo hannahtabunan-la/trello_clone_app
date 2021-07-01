@@ -21,6 +21,13 @@ defmodule Backend.Lists do
     Repo.all(List)
   end
 
+  def list_lists(board_id) do
+    query = from l in List,
+            join: b in assoc(l, :board),
+            where: l.board_id == ^board_id
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single list.
 
