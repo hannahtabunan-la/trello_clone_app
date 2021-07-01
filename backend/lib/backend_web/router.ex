@@ -35,6 +35,14 @@ defmodule BackendWeb.Router do
 
     post "/signup", AccountController, :create
     post "/signin", AccountController, :signin
+
+    # resources "/boards", BoardController, [:index, :create, :show, :update, :delete]
+
+    # resources "/lists", ListController, [:index, :create, :show, :update, :delete]
+
+    # resources "/tasks", TaskController, [:index, :create, :show, :update, :delete]
+
+    # resources "/permissions", PermissionController, [:index, :create, :show, :update]
   end
 
   scope "/api", BackendWeb do
@@ -42,6 +50,8 @@ defmodule BackendWeb.Router do
     resources "/users", UserController, [:index]
 
     resources "/boards", BoardController, [:index, :create, :show, :update, :delete]
+
+    resources "/lists", ListController, [:index, :create, :show, :update, :delete]
 
     resources "/tasks", TaskController, [:index, :create, :show, :update, :delete]
 
