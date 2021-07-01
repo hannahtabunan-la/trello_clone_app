@@ -7,7 +7,6 @@ defmodule FrontendWeb.Live.Board.List.Edit do
 
   def mount(_params, session, socket) do
     # IO.inspect(session["list"])
-
     # changeset = Lists.change_list(session["list"])
 
     assigns = %{
@@ -17,8 +16,7 @@ defmodule FrontendWeb.Live.Board.List.Edit do
       list_id: session["list_id"],
       csrf_token: session["csrf_token"],
       submit_handler: "update",
-      submit_disble_message: "Updating",
-      # changeset: changeset
+      submit_disble_message: "Updating"
     }
 
     # if connected?(socket) do
@@ -27,8 +25,7 @@ defmodule FrontendWeb.Live.Board.List.Edit do
 
     # IO.inspect(session["changeset"])
 
-    # {:ok, assign(socket, assigns)}
-    fetch(assign(socket, assigns))
+    {:ok, fetch(assign(socket, assigns))}
   end
 
   def render(assigns),
@@ -57,7 +54,7 @@ defmodule FrontendWeb.Live.Board.List.Edit do
   def fetch(socket) do
     id = socket.assigns.list_id
     access_token = socket.assigns.access_token
-    params = %{access_token: access_token, id: id}
+    params = %{"access_token" => access_token, "id" => id}
 
     case Lists.get_list!(params) do
       {:ok, list} ->
@@ -68,9 +65,8 @@ defmodule FrontendWeb.Live.Board.List.Edit do
           changeset: changeset
         }
 
-        {:ok, assign(socket, assigns)}
-      {:error, _lists} ->
-        {:ok, socket |> put_flash(:error, "Failed to fetch list.")}
+        assign(socket, assigns)
+      {:error, _lists} -> socket |> put_flash(:error, "Failed to fetch list.")
     end
   end
 
