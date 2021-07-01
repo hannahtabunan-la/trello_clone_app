@@ -6,12 +6,14 @@ defmodule BackendWeb.ListController do
 
   action_fallback BackendWeb.FallbackController
 
-  def index(conn, _params) do
-    lists = Lists.list_lists()
+  def index(conn, %{"board_id" => board_id}) do
+    lists = Lists.list_lists(board_id)
     render(conn, "index.json", lists: lists)
   end
 
   def create(conn, %{"list" => list_params}) do
+    list_params = Map.put(list_params, "user_id", conn.assigns.current_user.id)
+
     with {:ok, %List{} = list} <- Lists.create_list(list_params) do
       conn
       |> put_status(:created)

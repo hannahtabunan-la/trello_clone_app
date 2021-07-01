@@ -16,8 +16,7 @@ defmodule BackendWeb.BoardController do
   end
 
   def create(conn, %{"board" => board_params}) do
-    # board_params = Map.put(board_params, "user_id", conn.assigns.current_user.id)
-    board_params = Map.put(board_params, "user_id", 1)
+    board_params = Map.put(board_params, "user_id", conn.assigns.current_user.id)
 
     with {:ok, %{:create_board => board}} <- CreateBoard.create(board_params) do
       conn
