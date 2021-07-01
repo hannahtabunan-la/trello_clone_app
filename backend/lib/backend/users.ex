@@ -122,7 +122,7 @@ defmodule Backend.Users do
     query = from u in User,
             join: p in Permission,
             on: u.id == p.id,
-            where: p.board_id != board_id
+            where: p.board_id != ^board_id
     Repo.all(query)
   end
 end
