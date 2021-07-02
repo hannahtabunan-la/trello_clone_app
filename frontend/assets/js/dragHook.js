@@ -8,13 +8,13 @@ export default {
         console.log('The selector is:', selector);
         
         // make sure you prepend the class's name with a period "." to indicate it's a class
-        document.querySelectorAll('.dropzone').forEach((dropzone) => {
+        document.querySelectorAll('.list-draggable').forEach((dropzone) => {
             new Sortable(dropzone, {
                 animation: 0,
                 delay: 50,
                 delayOnTouchOnly: true,
                 group: 'shared',
-                draggable: '.draggable',
+                draggable: '.card',
                 ghostClass: 'sortable-ghost',
                 onEnd: function (evt) {
                     hook.pushEventTo(selector, 'dropped', {
