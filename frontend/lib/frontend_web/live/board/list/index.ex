@@ -2,6 +2,7 @@ defmodule FrontendWeb.Live.Board.List.Index do
   use FrontendWeb, :live_view
 
   alias Frontend.API.Lists
+  alias Frontend.API.Tasks
 
   def mount(_params, session, socket) do
     assigns = %{
@@ -23,10 +24,12 @@ defmodule FrontendWeb.Live.Board.List.Index do
       Phoenix.PubSub.subscribe(Frontend.PubSub, "list")
     end
 
-    {:ok, fetch_list(assign(socket, assigns))}
+    socket = fetch_lists(assign(socket, assigns))
+
+    {:ok, fetch_tasks(assign(socket, assigns))}
   end
 
-  defp fetch_list(socket) do
+  defp fetch_lists(socket) do
     board_id = socket.assigns.board.id
     access_token = socket.assigns.access_token
     params = %{"access_token" => access_token, "board_id" => board_id}
@@ -89,7 +92,6 @@ defmodule FrontendWeb.Live.Board.List.Index do
         IO.inspect(list)
         {:noreply, assign(socket, list: list)}
       {:error, _lists} ->
-        IO.puts("LIIIIIST")
         {:noreply, socket |> put_flash(:error, "Failed to fetch list.")}
     end
   end
@@ -98,7 +100,7 @@ defmodule FrontendWeb.Live.Board.List.Index do
     # changeset = Board.update_changeset(list)
     # test = Enum.find(socket.assigns.lists)
     socket = assign(socket, modal: nil)
-    {:noreply, fetch_list(socket)}
+    {:noreply, fetch_lists(socket)}
   end
 
   def handle_info({_event, "close_modal", _data}, socket) do
@@ -110,6 +112,21 @@ defmodule FrontendWeb.Live.Board.List.Index do
   def handle_info({_subject, "create", payload: %{list: _list}}, socket) do
     # changeset = Board.update_changeset(list)
     # test = Enum.find(socket.assigns.lists)
-    {:noreply, fetch_list(socket)}
+    {:noreply, fetch_lists(socket)}
+  end
+
+  def fetch_tasks(socket) do
+    board_id = socket.assigns.board.id
+    access_token = socket.assigns.access_token
+    params = %{"access_token" => access_token, "board_id" => board_id}
+
+    case Tasks.all_tasks(params) do
+      {:ok, tasks} ->
+        tasks = tasks
+        |> Enum.group_by(&Map.get(&1, :list_id))
+
+        assign(socket, tasks: tasks)
+      {:error, _lists} -> socket |> put_flash(:error, "Failed to fetch lists.")
+    end
   end
 end
