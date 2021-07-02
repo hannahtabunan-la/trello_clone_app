@@ -1,10 +1,38 @@
 <div phx-hook="ListDrag" id="list_drag">
-    <%= live_component @socket, FrontendWeb.Live.Components.List.DropZoneComponent,
-        draggables: @lists,
-        access_token: @access_token,
-        csrf_token: @csrf_token,
-        board_id: @board.id
-    %>
+    <div phx-hook="Drag" id="drag">
+        <div class="list-dropzone flex">
+            <%= for %{title: title, id: id, position: position} <- @lists do %>
+                <div draggable="true" id="<%= id %>" class="list-draggable board-col" data-position="<%= position %>">
+                    <div class="flex">
+                        <div class="flex-grow"><span class="capitalize mb-4"><%= title %></span></div>
+                        <div>
+                            <button phx-click="edit_list" phx-value-id="<%= id %>">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <hr />
+                    <%= live_component @socket, FrontendWeb.Live.Components.CardsComponent,
+                        tasks: @tasks,
+                        access_token: @access_token,
+                        csrf_token: @csrf_token,
+                        cards: list_key_value(id, @tasks)
+                    %>
+                </div>
+            <% end %>
+            <div class="flex-shrink board-col mx-2 my-2">
+                <%# <button class="btn btn-primary">Add List</button> %>
+                <%= live_render @socket, FrontendWeb.Live.Board.List.New,
+                    id: "list-new-form",
+                    session: %{
+                        "access_token" => @access_token,
+                        "csrf_token" => @csrf_token,
+                        "board_id" => @board.id
+                    }
+                %>
+            </div>
+        </div>
+    </div>
 </div>
 
 <%= if @modal == :edit do %>
