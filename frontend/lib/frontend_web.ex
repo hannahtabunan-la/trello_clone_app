@@ -70,6 +70,7 @@ defmodule FrontendWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
+      import FrontendWeb.ViewHelpers
       import FrontendWeb.ErrorHelpers
       import FrontendWeb.Gettext
       alias FrontendWeb.Router.Helpers, as: Routes
