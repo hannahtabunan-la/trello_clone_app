@@ -27,9 +27,8 @@ defmodule FrontendWeb.Live.Board.Show do
       # send(self(), :load)
       Phoenix.PubSub.subscribe(Frontend.PubSub, "board:#{id}")
     end
-    socket = assign(socket, assigns)
 
-    {:ok, fetch(socket)}
+    {:ok, assign(socket, assigns)}
   end
 
   defp fetch(socket) do
