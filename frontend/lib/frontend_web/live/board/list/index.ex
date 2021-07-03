@@ -22,6 +22,7 @@ defmodule FrontendWeb.Live.Board.List.Index do
 
     if connected?(socket) do
       Phoenix.PubSub.subscribe(Frontend.PubSub, "list")
+      Phoenix.PubSub.subscribe(Frontend.PubSub, "task")
     end
 
     socket = fetch_lists(assign(socket, assigns))
@@ -115,6 +116,13 @@ defmodule FrontendWeb.Live.Board.List.Index do
     {:noreply, fetch_lists(socket)}
   end
 
+  def handle_info({_subject, "create_task", payload: %{task: _task}}, socket) do
+    # changeset = Board.update_changeset(list)
+    # test = Enum.find(socket.assigns.lists)
+    socket = assign(socket, list_id: nil)
+    {:noreply, fetch_tasks(socket)}
+  end
+
   def fetch_tasks(socket) do
     board_id = socket.assigns.board.id
     access_token = socket.assigns.access_token
@@ -151,5 +159,14 @@ defmodule FrontendWeb.Live.Board.List.Index do
     end
 
     {:noreply, socket}
+  end
+
+  def handle_event("new_task", %{"list" => list_id}, socket) do
+    assigns = %{
+      modal: :new_task,
+      list_id: list_id
+    }
+
+    {:noreply, assign(socket, assigns)}
   end
 end

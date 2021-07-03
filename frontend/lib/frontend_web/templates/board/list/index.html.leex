@@ -17,7 +17,18 @@
                             cards: list_key_value(id, @tasks)
                         %>
                     </div>
-                    <p class="addCard-btn">Add a card...</p>
+                    <p class="addCard-btn" phx-click="new_task" phx-value-list="<%= id %>">Add a task...</p>
+                    <%= if @modal == :new_task && @list_id == "#{id}" do %>
+                        <%= live_render @socket, FrontendWeb.Live.Board.Task.New,
+                            id: "task-new-form",
+                            session: %{
+                                "access_token" => @access_token,
+                                "csrf_token" => @csrf_token,
+                                "board_id" => @board.id,
+                                "list_id" => id
+                            }
+                        %>
+                    <% end %>
                 </div>
             <% end %>
             <div class="list-container">
