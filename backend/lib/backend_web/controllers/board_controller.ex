@@ -16,18 +16,24 @@ defmodule BackendWeb.BoardController do
   end
 
   def create(conn, %{"board" => board_params}) do
-    board_params = Map.put(board_params, "user_id", conn.assigns.current_user.id)
+    user_id = conn.assigns.current_user.id
+    board_params = Map.put(board_params, "user_id", user_id)
 
-    with {:ok, %{:create_board => board}} <- CreateBoard.create(board_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.board_path(conn, :show, board))
-      |> render("show.json", board: board)
+    with {:ok, %{:create_board => board}} <- CreateBoard.create(board_params),
+         board <- Boards.get_board!(board.id, user_id) do
+          conn
+          |> put_status(:created)
+          |> put_resp_header("location", Routes.board_path(conn, :show, board))
+          |> render("show.json", board: board)
+    else
+      {:error, changeset} -> {:error, changeset}
+      {:error, error} -> {:error, error}
     end
   end
 
   def show(conn, %{"id" => id}) do
-    board = Boards.get_board!(id)
+    user_id = conn.assigns.current_user.id
+    board = Boards.get_board!(id, user_id)
     render(conn, "show.json", board: board)
   end
 

@@ -79,7 +79,7 @@ defmodule Backend.Boards do
     |> Board.changeset(attrs)
     |> Repo.update()
     |> case do
-      {:ok, board} -> {:ok, Repo.preload(board, :user, force: true)}
+      {:ok, board} -> {:ok, Repo.preload(board, [:user, :permissions], force: true)}
       {:error, board} -> {:error, board}
     end
   end
@@ -120,5 +120,14 @@ defmodule Backend.Boards do
             where: p.user_id == ^user_id,
             preload: [user: u, permissions: p]
     Repo.all(query)
+  end
+
+  def get_board!(id, user_id) do
+    query = from b in Board,
+      join: u in assoc(b, :user),
+      join: p in assoc(b, :permissions),
+      where: p.user_id == ^user_id,
+      preload: [user: u, permissions: p]
+    Repo.get!(query, id)
   end
 end
