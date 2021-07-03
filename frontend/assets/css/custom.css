@@ -1,71 +1,59 @@
 @layer base {
-	html {
-		min-height: 100%;	
-	}
+    body {
+        @apply bg-main;
+        min-height: 100%;
+        background-repeat: no-repeat;
+    }
 
-	body {
-		@apply bg-main py-5 text-white;
-		font-weight: 300;
-		background-repeat: no-repeat;
-		font-family: 'Josefin Sans', sans-serif;
-	}
+    .main-container {
+        @apply w-full h-screen font-sans;
+    }
 
-	h1 {
-		@apply font-bold text-center my-3;
-		font-family: 'Chivo', sans-serif;
-	}
+    .board-header {
+        @apply flex m-4 justify-between;
+    }
 
-	.header {
-		font-family: 'Dancing Script', Georgia, Times, serif;
-	}
+    .board-title {
+        @apply text-white mr-4;
+    }
 
-	hr {
-		border: 0;
-		height: 1px;
-		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-	}
+    .showMenu-btn {
+        @apply text-white text-sm underline hidden md:flex items-center underline;
+    }
 
-	h2, h3, h4, h5, h6 {
-		@apply text-2xl font-bold text-center my-3;
-	}
+    .board {
+        @apply px-4 pb-8 overflow-x-auto;
+    }
 
-	.hold {
-		background: transparent;
-		color: transparent;
-		border: solid 2px #ffffff;
-	}
+    .board-dropzone {
+        @apply flex items-start;
+    }
 
-	a {
-		@apply text-indigo-600 hover:text-indigo-900;
-	}
-}
+    .list-container {
+        @apply text-white rounded bg-violet bg-opacity-75 flex-shrink-0 w-64 p-2 mr-3;
+    }
 
-@layer components {
-	.board {
-		@apply bg-violet p-5;
-		height: 100%;
-		margin-top: 48px;
-	}
+    .list-header {
+        @apply flex justify-between py-1;
+    }
 
+    .list-title {
+        @apply text-sm text-white;
+    }
 
-	.cards {
-		@apply list-none;
-	}
+    .list-ellipsis {
+        @apply h-4 fill-current cursor-pointer;
+    }
 
-	.card {
-		@apply bg-violet-800 my-2.5 mt-2 p-4 text-white mt-6;
-	}
+    .list-body {
+        @apply text-sm mt-2;
+    }
 
-	.dropzone {
-		@apply grid gap-3 p-6 p-6 border-solid border-2 border-violet-500 rounded-md my-6;
-	}
+    .card {
+        @apply bg-violet-300 p-2 rounded mt-1 border-b border-violet-900 cursor-pointer hover:bg-violet-700 text-gray-50;
+    }
 
-	.board-col {
-		@apply p-4 border-solid border-2 border-violet-500 rounded-md flex-grow mx-2 my-2;
-	}
-
-	.sortable-ghost {
-		/* make the drop placeholder slightly transparent */
-		opacity: 0.75; 
-	}
+    .addCard-btn {
+        @apply mt-3 text-gray-300 hover:text-gray-100 cursor-pointer;
+    }
 }

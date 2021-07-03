@@ -1,0 +1,76 @@
+@layer base {
+	html {
+		min-height: 100%;	
+	}
+
+	body {
+		/* @apply bg-main py-5 text-white; */
+		@apply bg-main w-full h-screen font-sans;
+		font-weight: 300;
+		background-repeat: no-repeat;
+		font-family: 'Josefin Sans', sans-serif;
+	}
+
+	h1 {
+		@apply font-bold text-center my-3;
+		font-family: 'Chivo', sans-serif;
+	}
+
+	.header {
+		font-family: 'Dancing Script', Georgia, Times, serif;
+	}
+
+	hr {
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+	}
+
+	h2, h3, h4, h5, h6 {
+		@apply text-2xl font-bold text-center my-3;
+	}
+
+	.hold {
+		background: transparent;
+		color: transparent;
+		border: solid 2px #ffffff;
+	}
+
+	a {
+		@apply text-indigo-600 hover:text-indigo-900;
+	}
+}
+
+@layer components {
+	.board {
+		@apply bg-violet p-5;
+		height: 100%;
+		margin-top: 48px;
+	}
+
+
+	.cards {
+		@apply list-none;
+	}
+
+	.card {
+		@apply bg-violet-800 my-2.5 mt-2 p-4 text-white mt-6;
+	}
+
+	.dropzone {
+		@apply grid gap-3 p-6 p-6 border-solid border-2 border-violet-500 rounded-md my-6;
+	}
+
+	.board-col {
+		@apply p-4 border-solid border-2 border-violet-500 rounded-md flex-grow mx-2 my-2;
+	}
+
+	.sortable-ghost {
+		/* make the drop placeholder slightly transparent */
+		opacity: 0.75; 
+	}
+
+	.btn-addTask {
+		@apply text-gray-100 hover:text-white;
+	}
+}
