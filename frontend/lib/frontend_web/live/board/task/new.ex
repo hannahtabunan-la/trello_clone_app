@@ -38,7 +38,7 @@ defmodule FrontendWeb.Live.Board.Task.New do
 
     case Tasks.create_task(params) do
       {:ok, task} ->
-        Phoenix.PubSub.broadcast(Frontend.PubSub, "task", {"task", "create", payload: %{task: task}})
+        Phoenix.PubSub.broadcast(Frontend.PubSub, "task", {"task", "create_task", payload: %{task: task}})
 
         assign(socket, changeset: Task.create_changeset(%Task{}))
 
