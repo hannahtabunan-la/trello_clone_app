@@ -6,11 +6,12 @@
     <% end %>
     <%= text_input f, :board_id, class: "hidden", value: @board_id %>
     <div class="form-group">
-    <%= text_input f, :title, class: "form-control", placeholder: "Add list" %>
-    <%= error_tag f, :title %>
+        <%= text_input f, :title, class: "form-control", placeholder: "Add list" %>
+        <%= error_tag f, :title %>
     </div>
     <div class="form-actions">
-    <%= submit "Create", phx_disable_with: @submit_disble_message, class: "btn btn-primary btn-sm" %>
-    <button type="button" class="btn btn-default btn-sm" phx-click="close_modal">Cancel</button>
+        <%= submit phx_disable_with: @submit_disble_message, class: "btn btn-primary btn-sm" do %>
+            <i class="fas fa-plus"></i>
+        <% end %>
     </div>
 </form>

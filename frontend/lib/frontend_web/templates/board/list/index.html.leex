@@ -1,5 +1,5 @@
 <div class="board" phx-hook="ListDrag" id="board">
-    <span class="board-dropzone">
+    <div class="board-dropzone">
         <%= for %{title: title, id: id, position: position} <- @lists do %>
             <div draggable="true" id="<%= id %>" class="list-container list-draggable" data-position="<%= position %>">
                 <div class="list-header">
@@ -19,7 +19,17 @@
                 </div>
             </div>
         <% end %>
-    </span>
+        <div class="list-container">
+            <%= live_render @socket, FrontendWeb.Live.Board.List.New,
+                id: "list-new-form",
+                session: %{
+                    "access_token" => @access_token,
+                    "csrf_token" => @csrf_token,
+                    "board_id" => @board.id
+                }
+            %>
+        </div>
+    </div>
 </div>
 
 
