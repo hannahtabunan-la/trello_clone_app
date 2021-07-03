@@ -12,7 +12,17 @@ defmodule BackendWeb.ListController do
   end
 
   def create(conn, %{"list" => list_params}) do
+    %{ "board_id" => board_id } = list_params
+
+    new_position = case Lists.last_position(board_id) do
+      nil ->
+          "1.0";
+      %{ position: last_position } ->
+          Decimal.add(last_position, "1.0")
+    end
+
     list_params = Map.put(list_params, "user_id", conn.assigns.current_user.id)
+    list_params = Map.put(list_params, "position", new_position)
 
     with {:ok, %List{} = list} <- Lists.create_list(list_params) do
       conn
