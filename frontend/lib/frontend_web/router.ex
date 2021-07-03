@@ -45,6 +45,10 @@ defmodule FrontendWeb.Router do
 
     get "/signin", SessionController, :new
     post "/signin", SessionController, :create
+
+    get "/signout", SessionController, :delete
+
+    get "/test", SessionController, :test
   end
 
   scope "/boards", FrontendWeb do
