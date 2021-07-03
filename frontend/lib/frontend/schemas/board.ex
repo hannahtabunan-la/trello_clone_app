@@ -7,7 +7,8 @@ defmodule Frontend.Schemas.Board do
     :name,
     :user_id,
     :inserted_at,
-    :updated_at
+    :updated_at,
+    :permission
   ]
 
   # @derive {Phoenix.Param, key: :id}
@@ -18,6 +19,7 @@ defmodule Frontend.Schemas.Board do
     field :id, :id
     field :name, :string
     field :user_id, :id
+    field :permission, Ecto.Enum, values: [:read, :write, :manage], default: :read
 
     timestamps()
   end
@@ -36,7 +38,7 @@ defmodule Frontend.Schemas.Board do
 
   def update_changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name])
+    |> cast(params, [:name, :permission])
     |> validate_required([:name])
   end
 
