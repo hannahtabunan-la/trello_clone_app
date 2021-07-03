@@ -7,6 +7,10 @@
         @apply flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0
     }
 
+    .modal-content {
+        @apply inline-block align-bottom bg-violet-300 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full;
+    }
+
     .modal-header {
         width: 100%;
         flex: 0;
@@ -29,7 +33,7 @@
     }
 
     .modal-title {
-        @apply text-lg leading-6 font-medium text-gray-900;
+        @apply text-lg leading-6 font-medium text-white;
     }
 
     .modal-body .p {
