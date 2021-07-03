@@ -5,7 +5,7 @@ export default {
         let dragged; // this will change so we use `let`
         const hook = this;
         const selector = '#' + this.el.id;
-        let dropzone = document.querySelector(".list-dropzone")
+        let dropzone = document.querySelector(".board-dropzone")
         console.log('List Drag Hook - The selector is:', selector);
         
         new Sortable(dropzone, {
