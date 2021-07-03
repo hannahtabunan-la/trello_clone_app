@@ -24,7 +24,8 @@ defmodule Backend.Lists do
   def list_lists(board_id) do
     query = from l in List,
             join: b in assoc(l, :board),
-            where: l.board_id == ^board_id
+            where: l.board_id == ^board_id,
+            order_by: l.position
     Repo.all(query)
   end
 
@@ -107,5 +108,14 @@ defmodule Backend.Lists do
   """
   def change_list(%List{} = list, attrs \\ %{}) do
     List.changeset(list, attrs)
+  end
+
+  def last_position(board_id) do
+    Repo.one(from l in List,
+      select: [:position],
+      where: l.board_id == ^board_id,
+      order_by: [desc: l.position],
+      limit: 1
+    )
   end
 end
