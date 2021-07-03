@@ -7,6 +7,10 @@
         @apply hidden md:flex justify-start;
     }
 
+    .search-bar a {
+        @apply text-white hover:text-gray-200 no-underline;
+    }
+
     .home-btn {
         @apply bg-primary-300 rounded p-2 font-bold text-white text-sm mr-2 flex;
     }

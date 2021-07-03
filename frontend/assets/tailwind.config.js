@@ -26,31 +26,38 @@ module.exports = {
      }),
     backgroundColor: theme => ({
       ...theme('colors'),
-      'primary': '#3490dc',
-      'secondary': '#ffed4a',
+      'primary': '#355C7D',
+      'secondary': '#95829d',
       'danger': '#e3342f',
+      'primary-300': '#475E89',
       'violet': '#6c5b7b',
+      'violet-900': '#4f3e5e',
       'violet-800': '#625071',
       'violet-700': '#68527A',
       'violet-500': '#826599',
-      'gray': '#6c5b7b',
-      'gray-700': '#5B585F',
-      'gray-500': '#6E6B73'
+      'violet-300': '#8d7f9a',
+      'violet-100': '#b4abbc'
      }),
      textColor: theme => ({
        ...theme('colors'),
       'violet': '#6c5b7b',
+      'violet-900': '#4f3e5e',
       'violet-800': '#625071',
       'violet-700': '#68527A',
       'violet-500': '#826599',
+      'violet-300': '#8d7f9a',
+      'violet-100': '#b4abbc',
       'yellow': '#E3D26F'
      }),
      borderColor: theme => ({
       ...theme('colors'),
      'violet': '#6c5b7b',
+     'violet-900': '#4f3e5e',
      'violet-800': '#625071',
      'violet-700': '#68527A',
      'violet-500': '#826599',
+     'violet-300': '#8d7f9a',
+     'violet-100': '#b4abbc',
      'yellow': '#E3D26F'
     })
   },

@@ -5,6 +5,10 @@
         background-repeat: no-repeat;
     }
 
+    a {
+        @apply text-violet hover:text-violet-700 underline;
+    }
+
     .main-container {
         @apply w-full h-screen font-sans;
     }
@@ -50,10 +54,10 @@
     }
 
     .card {
-        @apply bg-violet-300 p-2 rounded mt-1 border-b border-violet-900 cursor-pointer hover:bg-violet-700 text-gray-50;
+        @apply bg-violet-300 p-2 rounded mt-1 border-b border-violet-900 hover:bg-violet-700 text-gray-50;
     }
 
     .addCard-btn {
-        @apply mt-3 text-gray-300 hover:text-gray-100 cursor-pointer;
+        @apply text-sm mt-3 text-gray-300 hover:text-gray-100 cursor-pointer;
     }
 }
