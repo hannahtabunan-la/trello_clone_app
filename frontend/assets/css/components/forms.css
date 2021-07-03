@@ -5,11 +5,11 @@
 
     .form-label {
         /* @apply block font-bold md:text-right md:mb-0 pr-4 my-2; */
-        @apply text-gray-500 leading-relaxed block font-medium mb-1 md:mb-0 pr-4;
+        @apply text-gray-200 leading-relaxed block font-medium mb-1 md:mb-0 pr-4;
     }
 
     .form-control {
-        @apply text-gray-500 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500
+        @apply text-gray-500 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 leading-tight bg-gray-100 focus:outline-none focus:bg-gray-50 focus:border-purple-500
     }
 
     [type='checkbox'] {
