@@ -1,3 +1,6 @@
 <%= for card <- @cards do %>
-    <div class="card" draggable="true" id="<%= card.id %>"><%= card.title %></div>
+    <div class="card" draggable="true" id="<%= card.id %>"
+        phx-click="edit_task" phx-value-id="<%= card.id %>">
+        <%= card.title %>
+    </div>
 <% end %>

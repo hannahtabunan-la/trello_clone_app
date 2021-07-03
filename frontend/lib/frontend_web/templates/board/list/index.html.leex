@@ -58,3 +58,14 @@
         }
     %>
 <% end %>
+
+<%= if @modal == :edit_task do %>
+    <%= live_render @socket, FrontendWeb.Live.Board.Task.Edit,
+        id: "task-edit-form",
+        session: %{
+            "access_token" => @access_token,
+            "csrf_token" => @csrf_token,
+            "id" => @task_id
+        }
+    %>
+<% end %>

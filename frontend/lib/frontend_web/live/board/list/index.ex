@@ -13,7 +13,8 @@ defmodule FrontendWeb.Live.Board.List.Index do
       view: :list,
       modal: nil,
       list_id: nil,
-      list: nil
+      list: nil,
+      task_id: nil
     }
 
     # if connected?(socket) do
@@ -105,14 +106,13 @@ defmodule FrontendWeb.Live.Board.List.Index do
   end
 
   def handle_info({_event, "close_modal", _data}, socket) do
-    IO.puts("LIST INDEX - CLOSE MODAL")
-
     {:noreply, assign(socket, modal: nil)}
   end
 
   def handle_info({_subject, "create", payload: %{list: _list}}, socket) do
     # changeset = Board.update_changeset(list)
     # test = Enum.find(socket.assigns.lists)
+
     {:noreply, fetch_lists(socket)}
   end
 
@@ -121,6 +121,18 @@ defmodule FrontendWeb.Live.Board.List.Index do
     # test = Enum.find(socket.assigns.lists)
     socket = assign(socket, list_id: nil)
     {:noreply, fetch_tasks(socket)}
+  end
+
+  def handle_info({_subject, "update_task", payload: %{task: _task}}, socket) do
+    # changeset = Board.update_changeset(list)
+    # test = Enum.find(socket.assigns.lists)
+
+    assigns = %{
+      task_id: nil,
+      modal: nil
+    }
+
+    {:noreply, fetch_tasks(assign(socket, assigns))}
   end
 
   def fetch_tasks(socket) do
@@ -165,6 +177,15 @@ defmodule FrontendWeb.Live.Board.List.Index do
     assigns = %{
       modal: :new_task,
       list_id: list_id
+    }
+
+    {:noreply, assign(socket, assigns)}
+  end
+
+  def handle_event("edit_task", %{"id" => id}, socket) do
+    assigns = %{
+      task_id: id,
+      modal: :edit_task
     }
 
     {:noreply, assign(socket, assigns)}
