@@ -19,6 +19,29 @@
         <button class="notification-bell">
             <svg class="h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c-.8 0-1.5.7-1.5 1.5v.688C7.344 4.87 5 7.62 5 11v4.5l-2 2.313V19h18v-1.188L19 15.5V11c0-3.379-2.344-6.129-5.5-6.813V3.5c0-.8-.7-1.5-1.5-1.5zm-2 18c0 1.102.898 2 2 2 1.102 0 2-.898 2-2z"/></svg>
         </button>
+        -->
+        <%# TODO: Add behavior - edit user %>
+        <button type="button" class="dropdown bg-violet-800 text-gray-200 hover:text-gray-100 rounded-full h-10 w-10 flex items-center justify-center font-bold cursor-pointer">
+            <%= get_first_charac_string(@conn.private.plug_session["user"].name) %>
+        </span>
+        <div class="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
+            <div class="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none" aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
+                <div class="px-4 py-3">         
+                    <p class="text-sm leading-5">Signed in as</p>
+                    <p class="text-sm font-medium leading-5 text-gray-900 truncate"><%= get_current_user_email(@conn) %></p>
+                </div>
+                <div class="py-1">
+                    <a href="javascript:void(0)" tabindex="0" class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"  role="menuitem" >Account settings</a>
+                    <%# <span role="menuitem" tabindex="-1" class="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 cursor-not-allowed opacity-50" aria-disabled="true">New feature (soon)</span> %>
+                </div>
+                <div class="py-1">
+                    <%= link to: Routes.session_path(@conn, :delete), tabindex: "3", class: "text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left", role: "menuitem" do %>
+                        Sign out
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <!--
         <img src="https://i.imgur.com/OZaT7jl.png" class="rounded-full" />
         -->
     </div>
