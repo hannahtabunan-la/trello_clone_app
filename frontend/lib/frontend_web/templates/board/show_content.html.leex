@@ -1,17 +1,20 @@
-<div class="flex flex-row">
-    <div class="flex-grow"><h1><%= @board.name %></h1></div>
-    <div class="flex-shrink">
+<div class="board-header">
+    <div class="flex">
+        <h3 class="board-title"><%= @board.name %></h3>
+        <!--
         <button class="btn btn-primary align-right btn-md" phx-click="edit_board">Edit</button>
-        <%= if @modal == :edit do %>
-            <%= live_render @socket, FrontendWeb.Live.Board.Edit,
-                id: "board-edit-modal",
-                session: %{
-                    "access_token" => @access_token,
-                    "csrf_token" => @csrf_token,
-                    "board" => @board
-                }
-            %>
-        <% end %>
+        -->
+        <!--
+        <ul class="list-reset text-white hidden md:flex">
+            <li><span class="font-bold text-lg px-2">☆</span></li>
+            <li><span class="border-l border-blue-lighter px-2 text-sm">Business Name</span> <span class="rounded-lg bg-blue-light text-xs px-2 py-1">Free</span></li>
+            <li><span class="border-l border-blue-lighter px-2 text-sm ml-2">Team Visible</span></li>
+        </ul>
+        -->
+    </div>
+    <div class="showMenu-btn">
+        <svg class="h-4 fill-current text-white cursor-pointer mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
+        Show menu
     </div>
 </div>
 
@@ -23,3 +26,13 @@
         "board" => @board
     }
 %>
+<%= if @modal == :edit do %>
+    <%= live_render @socket, FrontendWeb.Live.Board.Edit,
+        id: "board-edit-modal",
+        session: %{
+            "access_token" => @access_token,
+            "csrf_token" => @csrf_token,
+            "board" => @board
+        }
+    %>
+<% end %>
