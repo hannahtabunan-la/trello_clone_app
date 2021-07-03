@@ -54,4 +54,16 @@ defmodule Frontend.Schemas.Task do
     task
     |> cast(params, update_attrs)
   end
+
+  def query_changeset(struct, params \\ %{}) do
+    types = %{
+      id: :id,
+      q: :string,
+      limit: :integer,
+      page: :integer
+    }
+
+    {struct, types}
+    |> cast(params, Map.keys(types))
+  end
 end
