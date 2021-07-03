@@ -24,14 +24,27 @@ defmodule FrontendWeb.SessionController do
         |> put_session(:token, token)
         |> put_flash(:info, "Successfully logged in.")
         |> redirect(to: Routes.board_path(conn, :index))
-
-        IO.inspect(conn)
       {:error, _params} ->
         changeset = Session.change_user_signin(%User{})
         conn
         |> put_flash(:error, "Failed to log in.")
         |> render("signin.html", changeset: changeset)
     end
+  end
+
+  def test(conn, _params) do
+    conn
+    |> put_layout(false) # disable app.html.eex layout
+    |> put_root_layout(false) # disable root.html.eex layout
+    |> render("test.html")
+  end
+
+  def delete(conn, _params) do
+    conn
+    |> delete_session(:user)
+    |> delete_session(:token)
+    |> put_flash(:info, "See you again soon!")
+    |> redirect(to: Routes.session_path(conn, :new))
   end
 
   # def signup(conn, test) do
