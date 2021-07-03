@@ -24,7 +24,9 @@ defmodule Backend.Transactions.CreateBoard do
   end
 
   defp create_lists(%{create_board: board}) do
-    lists = [%{title: "pending"}, %{title: "in progress"}, %{title: "completed"}]
+    lists = Enum.with_index(["pending", "in progress", "completed"], &(
+      %{ title: &1, position: Decimal.new(&2) }
+    ))
 
     lists
     |> Enum.map(fn list ->
