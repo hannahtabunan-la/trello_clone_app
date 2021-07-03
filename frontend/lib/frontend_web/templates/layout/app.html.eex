@@ -20,11 +20,13 @@
     <%= csrf_meta_tag() %>
   </head>
   <body>
-    <main role="main" class="container">
-      <%# TODO: Hide if no current user%>
-      <%= render("navbar.html", assigns) %>
-      <hr/>
-      <%= @inner_content %>
+    <main role="main">
+      <div class="main-container">
+        <%# TODO: Hide if no current user%>
+        <%= render("navbar.html", assigns) %>
+        <hr/>
+        <%= @inner_content %>
+      </div>
     </main>
   </body>
 </html>
