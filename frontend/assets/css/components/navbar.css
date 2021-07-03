@@ -1,0 +1,37 @@
+@layer components {
+    .navbar {
+        @apply bg-primary flex p-2 items-center;
+    }
+
+    .search-bar {
+        @apply hidden md:flex justify-start;
+    }
+
+    .home-btn {
+        @apply bg-primary-300 rounded p-2 font-bold text-white text-sm mr-2 flex;
+    }
+
+    .search-input {
+        @apply bg-primary-300 rounded p-2;
+    }
+
+    .pageTitle-container {
+        @apply text-white mx-0 md:mx-auto;
+    }
+
+    .page-title {
+        @apply text-xl flex items-center font-sans italic;
+    }
+
+    .profile-bar {
+        @apply flex items-center ml-auto;
+    }
+
+    .profile-btn {
+        @apply bg-primary-300 rounded h-8 w-8 font-bold text-white text-sm mr-2;
+    }
+
+    .notification-bell {
+        @apply bg-red-200 rounded h-8 w-8 font-bold text-white text-sm mr-2;
+    }
+}
