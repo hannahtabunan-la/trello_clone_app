@@ -129,4 +129,27 @@ defmodule FrontendWeb.Live.Board.List.Index do
       {:error, _lists} -> socket |> put_flash(:error, "Failed to fetch lists.")
     end
   end
+
+  def handle_event("card_dropped", %{"draggedId" => card_id, "dropzoneId" => list_id}, socket) do
+    access_token = socket.assigns.access_token
+
+    params = %{
+      "id"=> card_id,
+      "list_id" => list_id,
+      "access_token" => access_token
+    }
+
+    case Tasks.update_task(params) do
+        {:ok, task} ->
+            {:noreply,
+            fetch_tasks(socket)
+            |> put_flash(:info, "Task is successfully updated.")}
+        {:error, _task} ->
+            {:noreply,
+            socket
+            |> put_flash(:error, "Failed to update task.")}
+    end
+
+    {:noreply, socket}
+  end
 end

@@ -1,33 +1,35 @@
 <div class="board" phx-hook="ListDrag" id="board">
-    <div class="board-dropzone">
-        <%= for %{title: title, id: id, position: position} <- @lists do %>
-            <div draggable="true" id="<%= id %>" class="list-container list-draggable" data-position="<%= position %>">
-                <div class="list-header">
-                    <h3 class="list-title"><%= title %></h3>
-                    <span phx-click="edit_list" phx-value-id="<%= id %>">
-                        <svg class="list-ellipsis" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
-                    </span>
-                </div>
-                <div class="list-body">
-                    <%= live_component @socket, FrontendWeb.Live.Components.CardsComponent,
-                        tasks: @tasks,
-                        access_token: @access_token,
-                        csrf_token: @csrf_token,
-                        cards: list_key_value(id, @tasks)
-                    %>
+    <div phx-hook="Drag" id="lists">
+        <div class="board-dropzone">
+            <%= for %{title: title, id: id, position: position} <- @lists do %>
+                <div draggable="true" data-id="<%= id %>" class="list-container list-draggable" data-position="<%= position %>">
+                    <div class="list-header">
+                        <h3 class="list-title"><%= title %></h3>
+                        <span phx-click="edit_list" phx-value-id="<%= id %>">
+                            <svg class="list-ellipsis" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
+                        </span>
+                    </div>
+                    <div class="list-body" data-identifier="<%= id %>">
+                        <%= live_component @socket, FrontendWeb.Live.Components.CardsComponent,
+                            tasks: @tasks,
+                            access_token: @access_token,
+                            csrf_token: @csrf_token,
+                            cards: list_key_value(id, @tasks)
+                        %>
+                    </div>
                     <p class="addCard-btn">Add a card...</p>
                 </div>
+            <% end %>
+            <div class="list-container">
+                <%= live_render @socket, FrontendWeb.Live.Board.List.New,
+                    id: "list-new-form",
+                    session: %{
+                        "access_token" => @access_token,
+                        "csrf_token" => @csrf_token,
+                        "board_id" => @board.id
+                    }
+                %>
             </div>
-        <% end %>
-        <div class="list-container">
-            <%= live_render @socket, FrontendWeb.Live.Board.List.New,
-                id: "list-new-form",
-                session: %{
-                    "access_token" => @access_token,
-                    "csrf_token" => @csrf_token,
-                    "board_id" => @board.id
-                }
-            %>
         </div>
     </div>
 </div>
