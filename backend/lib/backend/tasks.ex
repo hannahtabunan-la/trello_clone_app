@@ -77,8 +77,6 @@ defmodule Backend.Tasks do
 
   """
   def update_task(%Task{} = task, attrs) do
-    IO.inspect(attrs)
-
     task
     |> Task.update_changeset(attrs)
     |> Repo.update()
@@ -122,9 +120,6 @@ defmodule Backend.Tasks do
       preload: [:user, :list, :assignee],
       where: t.is_deleted == :false and
              t.board_id == ^board_id
-
-    IO.inspect(query)
-
     Repo.all(query)
   end
 
