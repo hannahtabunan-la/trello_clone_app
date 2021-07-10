@@ -5,6 +5,11 @@ defmodule FrontendWeb.BoardController do
   alias Frontend.API.Boards
 
   action_fallback FrontendWeb.FallbackController
+
+  plug(Loaders, :permissions when action in [:show])
+
+  plug(Policies, :board_view when action in [:show])
+
   def index(conn, params) do
     access_token = conn.private.plug_session["access_token"]
     params = Map.put(params, "access_token", access_token)
