@@ -21,7 +21,7 @@ defmodule FrontendWeb.SessionController do
       {:ok, %{user: user, token: token}} ->
         conn
         |> put_session(:user, user)
-        |> put_session(:token, token)
+        |> put_session(:access_token, token)
         |> put_flash(:info, "Successfully logged in.")
         |> redirect(to: Routes.board_path(conn, :index))
       {:error, _params} ->
