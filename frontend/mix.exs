@@ -49,7 +49,8 @@ defmodule Frontend.MixProject do
       {:hackney, "~> 1.13"},
       {:guardian, "~> 1.0"},
       {:comeonin, "~> 4.0"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:bcrypt_elixir, "~> 1.0"},
+      {:policy_wonk, "~> 1.0.0"}
     ]
   end
 
