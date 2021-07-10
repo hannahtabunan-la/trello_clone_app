@@ -38,7 +38,13 @@ defmodule Backend.Boards do
       ** (Ecto.NoResultsError)
 
   """
-  def get_board!(id), do: Repo.get!(Board, id)
+  def get_board!(id) do
+    query = from b in Board,
+      join: u in assoc(b, :user),
+      join: p in assoc(b, :permissions),
+      preload: [user: u, permissions: p]
+    Repo.get!(query, id)
+  end
 
   @doc """
   Creates a board.
