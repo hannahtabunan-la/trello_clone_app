@@ -32,6 +32,24 @@ defmodule Frontend.API.Users do
     end
   end
 
+  def get_user!(params) do
+    url = "/users/:id"
+    {access_token, params} = Map.pop(params, "access_token")
+
+    with %{valid?: true} = changeset <- User.query_changeset(%User{}, params),
+          query = Changeset.apply_changes(changeset),
+          client <- client(access_token),
+          path_params = Map.take(query, [:id]),
+         {:ok, %{body: body, status: status}} when status in @success_codes
+          <- Tesla.get(client, url, opts: [path_params: path_params]) do
+      {:ok, from_response(body)}
+    else
+      {:ok, %{body: body}} -> {:error, body}
+      %Changeset{} = changeset -> {:error, changeset}
+      error -> error
+    end
+  end
+
   defp from_response(%{"user"=>user, "token"=>token}) do
     changeset = %User{}
     |> User.changeset(user)
@@ -46,6 +64,19 @@ defmodule Frontend.API.Users do
     middleware = [
       {Tesla.Middleware.BaseUrl, url},
       Tesla.Middleware.JSON
+    ]
+
+    Tesla.client(middleware)
+  end
+
+  def client(access_token) do
+    url = Application.get_env(:frontend, :api_url)
+
+    middleware = [
+      {Tesla.Middleware.BaseUrl, url},
+      Tesla.Middleware.JSON,
+      Tesla.Middleware.PathParams,
+      {Tesla.Middleware.Headers, [{"Authorization", "Bearer #{access_token}"}]},
     ]
 
     Tesla.client(middleware)
