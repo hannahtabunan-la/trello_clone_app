@@ -23,4 +23,14 @@ defmodule BackendWeb.AccountController do
       |> render("account.json", %{user: user, token: token})
     end
   end
+
+  def delete(conn, _) do
+    conn
+    |> logout
+    |> render("account.json", %{user: nil})
+  end
+
+  defp logout(conn) do
+    Guardian.Plug.sign_out(conn)
+  end
 end
