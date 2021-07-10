@@ -43,4 +43,16 @@ defmodule Frontend.Schemas.User do
     |> cast(attrs, [:email, :password])
     |> validate_required([:email, :password])
   end
+
+  def query_changeset(struct, params \\ %{}) do
+    types = %{
+      id: :id,
+      q: :string,
+      limit: :integer,
+      page: :integer
+    }
+
+    {struct, types}
+    |> cast(params, Map.keys(types))
+  end
 end
