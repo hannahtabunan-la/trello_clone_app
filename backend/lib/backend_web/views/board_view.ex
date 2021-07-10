@@ -12,8 +12,6 @@ defmodule BackendWeb.BoardView do
   end
 
   def render("board.json", %{board: board}) do
-    IO.inspect(board)
-
     %{id: board.id,
       name: board.name,
       user_id: board.user_id,

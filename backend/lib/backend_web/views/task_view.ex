@@ -4,8 +4,6 @@ defmodule BackendWeb.TaskView do
   # alias BackendWeb.UserView
 
   def render("index.json", %{tasks: tasks}) do
-    IO.inspect(tasks)
-
     # %{data: render_many(tasks, TaskView, "task.json")}
     render_many(tasks, TaskView, "task.json")
   end
