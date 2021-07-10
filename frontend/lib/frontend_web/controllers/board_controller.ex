@@ -4,6 +4,7 @@ defmodule FrontendWeb.BoardController do
   alias Frontend.Schemas.Board
   alias Frontend.API.Boards
 
+  action_fallback FrontendWeb.FallbackController
   def index(conn, params) do
     access_token = conn.private.plug_session["token"]
     params = Map.put(params, "access_token", access_token)
