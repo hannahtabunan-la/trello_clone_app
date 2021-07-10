@@ -6,7 +6,7 @@ defmodule FrontendWeb.BoardController do
 
   action_fallback FrontendWeb.FallbackController
   def index(conn, params) do
-    access_token = conn.private.plug_session["token"]
+    access_token = conn.private.plug_session["access_token"]
     params = Map.put(params, "access_token", access_token)
 
     with {:ok, boards} <- Boards.all_boards(params) do
@@ -38,7 +38,7 @@ defmodule FrontendWeb.BoardController do
   end
 
   def show(conn, params) do
-    access_token = conn.private.plug_session["token"]
+    access_token = conn.private.plug_session["access_token"]
     params = Map.put(params, "access_token", access_token)
 
     case Boards.get_board!(params) do
@@ -52,7 +52,7 @@ defmodule FrontendWeb.BoardController do
   end
 
   def edit(conn, params) do
-    access_token = conn.private.plug_session["token"]
+    access_token = conn.private.plug_session["access_token"]
     params = Map.put(params, "access_token", access_token)
 
     case Boards.get_board!(params) do
