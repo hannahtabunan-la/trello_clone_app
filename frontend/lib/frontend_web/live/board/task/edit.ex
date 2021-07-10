@@ -66,4 +66,10 @@ defmodule FrontendWeb.Live.Board.Task.Edit do
       {:error, _lists} -> socket |> put_flash(:error, "Failed to fetch task.")
     end
   end
+
+  def handle_event("close_modal", _param, socket) do
+    Phoenix.PubSub.broadcast(Frontend.PubSub, "list", {nil, "close_modal", nil})
+
+    {:noreply, assign(socket, modal: nil)}
+  end
 end

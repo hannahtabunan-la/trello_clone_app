@@ -49,4 +49,10 @@ defmodule FrontendWeb.Live.Board.Task.New do
         {:noreply, assign(socket, changeset: changeset)}
     end
   end
+
+  def handle_event("close_modal", _param, socket) do
+    Phoenix.PubSub.broadcast(Frontend.PubSub, "list", {nil, "close_modal", nil})
+
+    {:noreply, assign(socket, modal: nil)}
+  end
 end
