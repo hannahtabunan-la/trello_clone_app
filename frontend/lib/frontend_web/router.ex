@@ -16,11 +16,11 @@ defmodule FrontendWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :unauthenticated do
-    plug FrontendWeb.Plugs.UnauthenticatedPipeline
+  pipeline :authenticated do
+    plug FrontendWeb.Plugs.AuthenticatedPipeline
   end
 
-  pipeline :authenticated do
+  pipeline :unauthenticated do
     plug FrontendWeb.Plugs.UnauthenticatedPipeline
   end
 
@@ -52,9 +52,7 @@ defmodule FrontendWeb.Router do
   end
 
   scope "/boards", FrontendWeb do
-    pipe_through [:browser, :unauthenticated]
-
-    # get("/ping", PingController, :show)
+    pipe_through [:browser, :authenticated]
 
     resources "/", BoardController
   end
