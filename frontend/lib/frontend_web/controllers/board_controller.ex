@@ -17,7 +17,7 @@ defmodule FrontendWeb.BoardController do
   end
 
   def new(conn, _params) do
-    access_token = conn.private.plug_session["token"]
+    access_token = conn.private.plug_session["access_token"]
 
     changeset = Boards.change_board(%Board{})
     render(conn, "new.html", changeset: changeset, token: get_csrf_token(), access_token: access_token)
