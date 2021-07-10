@@ -109,4 +109,11 @@ defmodule Backend.Permissions do
   def change_permission(%Permission{} = permission, attrs \\ %{}) do
     Permission.changeset(permission, attrs)
   end
+
+  def list_permissions_for_board(board_id) do
+    query = from p in Permission,
+        join: b in assoc(p, :board),
+        where: p.board_id == ^board_id
+    Repo.all(query)
+  end
 end
