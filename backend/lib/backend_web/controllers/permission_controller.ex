@@ -6,8 +6,8 @@ defmodule BackendWeb.PermissionController do
 
   action_fallback BackendWeb.FallbackController
 
-  def index(conn, _params) do
-    permissions = Permissions.list_permissions()
+  def index(conn, %{"board_id" => board_id}) do
+    permissions = Permissions.list_permissions_for_board(board_id)
     render(conn, "index.json", permissions: permissions)
   end
 
