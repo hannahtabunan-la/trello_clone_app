@@ -42,7 +42,7 @@ defmodule Backend.Transactions.CreateBoard do
     %{user_id: user_id, id: board_id} = board
 
     permission = %{
-      "type" => "write",
+      "type" => "manage",
       "user_id" => user_id,
       "board_id" => board_id
     }
