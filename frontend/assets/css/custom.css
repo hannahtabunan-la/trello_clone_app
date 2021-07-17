@@ -42,7 +42,7 @@
     }
 
     .list-title {
-        @apply text-sm text-white;
+        @apply text-sm text-white capitalize;
     }
 
     .list-ellipsis {
@@ -54,10 +54,15 @@
     }
 
     .card {
-        @apply bg-violet-300 p-2 rounded mt-1 border-b border-violet-900 hover:bg-violet-700 text-gray-50;
+        @apply bg-violet-300 p-2 rounded mt-1 border-b border-violet-900 text-gray-50 hover:bg-violet-700;
     }
 
     .addCard-btn {
         @apply text-sm mt-3 text-gray-300 hover:text-gray-100 cursor-pointer;
+    }
+
+    .sortable-ghost {
+        opacity: 0.75;
+        border: dashed 1px white;
     }
 }

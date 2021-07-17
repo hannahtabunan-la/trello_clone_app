@@ -1,0 +1,5 @@
+@layer components {
+    .avatar {
+        @apply bg-violet-800 text-gray-200 hover:text-gray-100 rounded-full h-10 w-10 flex items-center justify-center font-bold cursor-pointer;
+    }
+}
