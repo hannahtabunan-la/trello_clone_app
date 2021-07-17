@@ -10,6 +10,7 @@ defmodule Backend.Schemas.Task do
     belongs_to :user, Backend.Schemas.User  # User relationship
     belongs_to :list, Backend.Schemas.List  # List relationship
     belongs_to :assignee, Backend.Schemas.User   # List relationship
+    has_many :comments, Backend.Schemas.Comment  # Comment relationship
 
     timestamps()
   end

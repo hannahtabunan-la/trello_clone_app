@@ -6,6 +6,7 @@ defmodule Backend.Schemas.User do
   alias Backend.Schemas.Task
   alias Backend.Schemas.Permission
   alias Backend.Schemas.List
+  alias Backend.Schemas.Comment
 
   schema "users" do
     field :name, :string
@@ -17,6 +18,7 @@ defmodule Backend.Schemas.User do
     has_many :permissions, Permission  # User relationship
     has_many :lists, List  # User relationship
     has_many :assigned_tasks, Task
+    has_many :comments, Comment  # Comment relationship
 
     timestamps()
   end
