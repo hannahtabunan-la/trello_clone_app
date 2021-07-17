@@ -15,7 +15,14 @@ defmodule FrontendWeb.Policies do
   end
 
   def policy(assigns, identifier)
-      when identifier in [:board_view],
+      when identifier in [
+        :board_view,
+        :board_edit,
+        :board_list_actions,
+        :board_task_actions,
+        :board_task_assign,
+        :board_comment
+      ],
       do: BoardPolicies.policy(assigns, identifier)
 
   def policy_error(conn, :current_user) do
