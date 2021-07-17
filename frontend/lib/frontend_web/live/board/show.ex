@@ -15,7 +15,8 @@ defmodule FrontendWeb.Live.Board.Show do
 
     assigns = %{
       access_token: session["access_token"],
-      # current_user: session.current_user,
+      current_user: session["current_user"],
+      permissions: session["permissions"],
       board: session["board"],
       csrf_token: session["token"],
       statuses: Boards.get_statuses(),

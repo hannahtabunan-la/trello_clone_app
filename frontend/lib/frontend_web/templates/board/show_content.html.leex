@@ -22,6 +22,8 @@
     id: "list-index",
     session: %{
         "access_token" => @access_token,
+        "current_user" => @current_user,
+        "permissions" => @permissions,
         "csrf_token" => @csrf_token,
         "board" => @board
     }
@@ -31,6 +33,8 @@
         id: "board-edit-modal",
         session: %{
             "access_token" => @access_token,
+            "current_user" => @current_user,
+            "permissions" => @permissions,
             "csrf_token" => @csrf_token,
             "board" => @board
         }

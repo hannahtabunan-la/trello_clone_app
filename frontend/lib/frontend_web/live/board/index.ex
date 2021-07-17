@@ -7,7 +7,7 @@ defmodule FrontendWeb.Live.Board.Index do
   def mount(_params, session, socket) do
     assigns = %{
       access_token: session["access_token"],
-      # current_user: session.current_user,
+      current_user: session["current_user"],
       boards: session["boards"],
       board_id: nil,
       csrf_token: session["csrf_token"],

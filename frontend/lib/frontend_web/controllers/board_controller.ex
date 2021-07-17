@@ -17,7 +17,9 @@ defmodule FrontendWeb.BoardController do
     with {:ok, boards} <- Boards.all_boards(params) do
       changeset = Boards.change_board(%Board{})
 
-      render(conn, "index.html", boards: boards, token: get_csrf_token(), changeset: changeset, access_token: access_token)
+      render(conn, "index.html", boards: boards, token: get_csrf_token(),
+          changeset: changeset, access_token: access_token,
+          current_user: conn.assigns.current_user)
     end
   end
 
@@ -39,16 +41,22 @@ defmodule FrontendWeb.BoardController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
+      {:error, %{"message" => message}} -> render(conn, "error_page.html", message: message)
     end
   end
 
   def show(conn, params) do
     access_token = conn.private.plug_session["access_token"]
     params = Map.put(params, "access_token", access_token)
+    current_user = conn.assigns.current_user
+    permissions = conn.assigns.permissions
 
     case Boards.get_board!(params) do
       {:ok, board} ->
-        render(conn, "show.html", board: board, token: get_csrf_token(), access_token: access_token)
+        render(conn, "show.html", board: board, token: get_csrf_token(),
+          access_token: access_token, current_user: current_user,
+          permissions: permissions
+          )
       {:error, _error} ->
         conn
         |> put_flash(:error, "Board does not exist.")

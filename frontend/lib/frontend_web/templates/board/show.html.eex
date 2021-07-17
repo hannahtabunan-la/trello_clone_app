@@ -3,7 +3,9 @@
     session: %{
       "board" => @board,
       "token" => @token,
-      "access_token" => @access_token
+      "access_token" => @access_token,
+      "current_user" => @current_user,
+      "permissions" => @permissions
     }
  %>
 </div>

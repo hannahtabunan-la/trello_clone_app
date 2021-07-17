@@ -9,7 +9,7 @@ defmodule FrontendWeb.Live.Board.New do
   def mount(_params, session, socket) do
     assigns = %{
       access_token: session["access_token"],
-      # current_user: session.current_user,
+      current_user: session["current_user"],
       changeset: Board.create_changeset(%Board{}),
       csrf_token: session["csrf_token"],
       action: Routes.board_path(socket, :create),

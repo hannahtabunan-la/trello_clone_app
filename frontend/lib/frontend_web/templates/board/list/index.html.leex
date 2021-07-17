@@ -13,6 +13,8 @@
                         <%= live_component @socket, FrontendWeb.Live.Components.CardsComponent,
                             tasks: @tasks,
                             access_token: @access_token,
+                            current_user: @current_user,
+                            permissions: @permissions,
                             csrf_token: @csrf_token,
                             cards: list_key_value(id, @tasks)
                         %>
@@ -23,6 +25,8 @@
                             id: "task-new-form",
                             session: %{
                                 "access_token" => @access_token,
+                                "current_user" => @current_user,
+                                "permissions" => @permissions,
                                 "csrf_token" => @csrf_token,
                                 "board_id" => @board.id,
                                 "list_id" => id
@@ -36,6 +40,8 @@
                     id: "list-new-form",
                     session: %{
                         "access_token" => @access_token,
+                            "current_user" => @current_user,
+                            "permissions" => @permissions,
                         "csrf_token" => @csrf_token,
                         "board_id" => @board.id
                     }
@@ -52,6 +58,8 @@
         id: "list-edit-modal",
         session: %{
             "access_token" => @access_token,
+            "current_user" => @current_user,
+            "permissions" => @permissions,
             "csrf_token" => @csrf_token,
             "list_id" => @list_id,
             "list" => @list,
@@ -64,6 +72,8 @@
         id: "task-edit-form",
         session: %{
             "access_token" => @access_token,
+            "current_user" => @current_user,
+            "permissions" => @permissions,
             "csrf_token" => @csrf_token,
             "id" => @task_id
         }

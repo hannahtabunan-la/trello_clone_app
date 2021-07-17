@@ -7,7 +7,8 @@ defmodule FrontendWeb.Live.Board.List.Index do
   def mount(_params, session, socket) do
     assigns = %{
       access_token: session["access_token"],
-      # current_user: session.current_user,
+      current_user: session["current_user"],
+      permissions: session["permissions"],
       board: session["board"],
       csrf_token: session["csrf_token"],
       view: :list,

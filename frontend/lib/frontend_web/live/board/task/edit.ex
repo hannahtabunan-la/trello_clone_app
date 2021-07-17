@@ -12,7 +12,8 @@ defmodule FrontendWeb.Live.Board.Task.Edit do
 
     assigns = %{
       access_token: session["access_token"],
-      # current_user: session.current_user,
+      current_user: session["current_user"],
+      permissions: session["permissions"],
       csrf_token: session["csrf_token"],
       id: session["id"],
       submit_handler: "update",

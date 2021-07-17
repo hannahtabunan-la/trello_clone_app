@@ -11,7 +11,8 @@ defmodule FrontendWeb.Live.Board.List.Edit do
 
     assigns = %{
       access_token: session["access_token"],
-      # current_user: session.current_user,
+      current_user: session["current_user"],
+      permissions: session["permissions"],
       # board: session["board"],
       list_id: session["list_id"],
       csrf_token: session["csrf_token"],
