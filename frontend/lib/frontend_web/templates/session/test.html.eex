@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Trello</title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    
+    <!-- Title -->
+    <link href="https://fonts.googleapis.com/css?family=Chivo:300,700|Playfair+Display:700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+
+    <!-- Description -->
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+
+    <%= csrf_meta_tag() %>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  </head>
+  <body>
+    <main role="main">
+        <div class="main-container">
+            <div class="navbar">
+                <div class="search-bar">
+                    <button class="home-btn">
+                        <svg class="fill-current text-white h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM21 36c0 1.1-.9 2-2 2h-7c-1.1 0-2-.9-2-2V12c0-1.1.9-2 2-2h7c1.1 0 2 .9 2 2v24zm19-12c0 1.1-.9 2-2 2h-7c-1.1 0-2-.9-2-2V12c0-1.1.9-2 2-2h7c1.1 0 2 .9 2 2v12z"/></svg>
+                        Boards
+                    </button>
+                    <input type="text" class="search-input">
+                </div>
+                <div class="pageTitle-container">
+                    <h1 class="page-title">
+                        <svg class="fill-current h-8 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM21 36c0 1.1-.9 2-2 2h-7c-1.1 0-2-.9-2-2V12c0-1.1.9-2 2-2h7c1.1 0 2 .9 2 2v24zm19-12c0 1.1-.9 2-2 2h-7c-1.1 0-2-.9-2-2V12c0-1.1.9-2 2-2h7c1.1 0 2 .9 2 2v12z"/></svg>
+                        Trello
+                    </h1>
+                </div>
+                <div class="profile-bar">
+                    <button class="profile-btn">+</button>
+                    <button class="profile-btn">i</button>
+                    <!--
+                    <button class="notification-bell">
+                        <svg class="h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c-.8 0-1.5.7-1.5 1.5v.688C7.344 4.87 5 7.62 5 11v4.5l-2 2.313V19h18v-1.188L19 15.5V11c0-3.379-2.344-6.129-5.5-6.813V3.5c0-.8-.7-1.5-1.5-1.5zm-2 18c0 1.102.898 2 2 2 1.102 0 2-.898 2-2z"/></svg>
+                    </button>
+                    <img src="https://i.imgur.com/OZaT7jl.png" class="rounded-full" />
+                    -->
+                </div>
+            </div>
+            <div class="board-header">
+                <div class="flex">
+                    <h3 class="board-title">TailwindComponents.com</h3>
+                    <!--
+                    <ul class="list-reset text-white hidden md:flex">
+                        <li><span class="font-bold text-lg px-2">☆</span></li>
+                        <li><span class="border-l border-blue-lighter px-2 text-sm">Business Name</span> <span class="rounded-lg bg-blue-light text-xs px-2 py-1">Free</span></li>
+                        <li><span class="border-l border-blue-lighter px-2 text-sm ml-2">Team Visible</span></li>
+                    </ul>
+                    -->
+                </div>
+                <div class="showMenu-btn">
+                    <svg class="h-4 fill-current text-white cursor-pointer mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
+                    Show menu
+                </div>
+            </div>
+            <div class="board">
+                <div class="list-container">
+                    <div class="list-header">
+                        <h3 class="list-title">New landing page</h3>
+                        <svg class="list-ellipsis" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
+                    </div>
+                    <div class="list-body">
+                        <div class="card">
+                            Do a mobile first layout
+                        </div>
+                        <!--
+                        <div class="card">
+                            Check the meta tags
+                        </div>
+                        
+                        <div class="card">
+                            Check the responsive layout on all devices
+                            <div class="text-grey-darker mt-2 ml-2 flex justify-between items-start">
+                                <span class="text-xs flex items-center">
+                                    <svg class="h-4 fill-current mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M11 4c-3.855 0-7 3.145-7 7v28c0 3.855 3.145 7 7 7h28c3.855 0 7-3.145 7-7V11c0-3.855-3.145-7-7-7zm0 2h28c2.773 0 5 2.227 5 5v28c0 2.773-2.227 5-5 5H11c-2.773 0-5-2.227-5-5V11c0-2.773 2.227-5 5-5zm25.234 9.832l-13.32 15.723-8.133-7.586-1.363 1.465 9.664 9.015 14.684-17.324z"/></svg>
+                                    3/5
+                                </span>
+                                <img src="https://i.imgur.com/OZaT7jl.png" class="rounded-full" />
+                            </div>
+                        </div>
+                        -->
+                        <p class="mt-3 text-grey-dark">Add a card...</p>
+                    </div>
+                </div>
+                <div class="list-container">
+                    <div class="list-header">
+                        <h3 class="list-title">Old landing</h3>
+                        <svg class="list-ellipsis" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
+                    </div>
+                    <div class="list-body">
+                        <div class="card">
+                            Delete all references from the wiki
+                        </div>
+                        <!--
+                        <div class="card">
+                            Remove analytics code
+                        </div>
+                        
+                        <div class="card">
+                            Whatever
+                        </div>
+                        
+                        <div class="card">
+                            <p>Think more tasks for this example</p>
+                            <div class="bg-red rounded p-1 mt-2 inline-flex text-white text-xs">
+                                <svg class="h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c-.8 0-1.5.7-1.5 1.5v.688C7.344 4.87 5 7.62 5 11v4.5l-2 2.313V19h18v-1.188L19 15.5V11c0-3.379-2.344-6.129-5.5-6.813V3.5c0-.8-.7-1.5-1.5-1.5zm-2 18c0 1.102.898 2 2 2 1.102 0 2-.898 2-2z"/></svg>
+                                2
+                            </div>
+                        </div>
+                        -->
+                        <p class="mt-3 text-grey-dark">Add a card...</p>
+                    </div>
+                </div>
+                <div class="list-container">
+                    <div class="list-header">
+                        <h3 class="list-title">Do more cards</h3>
+                        <svg class="list-ellipsis" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
+                    </div>
+                    <div class="list-body">
+                        <div class="card">
+                            Delete all references from the wiki
+                        </div>
+                        <!--
+                        <div class="card">
+                            Remove analytics code
+                        </div>
+                        
+                        <div class="card">
+                            Whatever
+                        </div>
+                        
+                        <div class="card">
+                            Delete all references from the wiki
+                        </div>
+                        
+                        <div class="card">
+                            Remove analytics code
+                        </div>
+                        
+                        <div class="card">
+                            Whatever
+                        </div>
+                        
+                        <div class="card">
+                            <p>Think more tasks for this example</p>
+                            <div class="bg-red rounded p-1 mt-2 inline-flex text-white text-xs">
+                                <svg class="h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c-.8 0-1.5.7-1.5 1.5v.688C7.344 4.87 5 7.62 5 11v4.5l-2 2.313V19h18v-1.188L19 15.5V11c0-3.379-2.344-6.129-5.5-6.813V3.5c0-.8-.7-1.5-1.5-1.5zm-2 18c0 1.102.898 2 2 2 1.102 0 2-.898 2-2z"/></svg>
+                                2
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            Delete all references from the wiki
+                        </div>
+                        
+                        <div class="card">
+                            Remove analytics code
+                        </div>
+                        
+                        <div class="card">
+                            Whatever
+                        </div>
+                        -->
+                        <p class="addCard-btn">Add a card...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
