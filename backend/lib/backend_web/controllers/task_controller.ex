@@ -8,6 +8,7 @@ defmodule BackendWeb.TaskController do
 
   def index(conn, %{"board_id" => board_id}) do
     # TODO: Return error when board_id = nil
+    # TODO: Return error when board_id = nil
 
     tasks = Tasks.list_tasks_not_deleted(board_id)
     render(conn, "index.json", tasks: tasks)
@@ -39,7 +40,6 @@ defmodule BackendWeb.TaskController do
 
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Tasks.get_task!(id)
-
     with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do
       render(conn, "show.json", task: task)
     end
