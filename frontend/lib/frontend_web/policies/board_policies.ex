@@ -7,9 +7,18 @@ defmodule FrontendWeb.Policies.BoardPolicies do
     types = [:manage, :write, :read]
 
     case Enum.find(permissions, &(Enum.member?(types, &1.type) && &1.user_id == current_user.id)) do
-      nil ->
-        IO.puts("NO PERMISSION")
-        {:error, :forbidden}
+      nil -> {:error, :forbidden}
+      _ -> :ok
+    end
+  end
+
+  def policy(assigns, :board_edit) do
+    current_user = assigns.current_user
+    permissions = assigns.permissions
+    types = [:manage, :write]
+
+    case Enum.find(permissions, &(Enum.member?(types, &1.type) && &1.user_id == current_user.id)) do
+      nil -> {:error, :forbidden}
       _ -> :ok
     end
   end
