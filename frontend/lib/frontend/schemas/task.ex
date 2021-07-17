@@ -10,6 +10,7 @@ defmodule Frontend.Schemas.Task do
     :user_id,
     :board_id,
     :list_id,
+    :assignee_id,
     :is_deleted,
     :inserted_at,
     :updated_at
@@ -27,6 +28,7 @@ defmodule Frontend.Schemas.Task do
     field :user_id, :id
     field :board_id, :id
     field :list_id, :id
+    field :assignee_id, :id
 
     timestamps()
   end
@@ -35,7 +37,8 @@ defmodule Frontend.Schemas.Task do
     :title,
     :position,
     :is_deleted,
-    :list_id
+    :list_id,
+    :assignee_id
   ]
 
   def update_attrs, do: @update_attrs
@@ -46,7 +49,7 @@ defmodule Frontend.Schemas.Task do
 
   def create_changeset(task, params \\ %{}) do
     task
-    |> cast(params, [:title, :user_id, :board_id, :list_id])
+    |> cast(params, [:title, :user_id, :board_id, :list_id, :assignee_id])
     |> validate_required([:title, :board_id, :list_id])
   end
 
