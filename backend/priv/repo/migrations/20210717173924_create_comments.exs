@@ -7,5 +7,6 @@ defmodule Backend.Repo.Migrations.CreateComments do
       add :is_deleted, :boolean, default: false
 
       timestamps()
+    end
   end
 end
