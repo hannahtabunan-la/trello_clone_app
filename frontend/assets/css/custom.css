@@ -6,7 +6,7 @@
     }
 
     a {
-        @apply text-violet hover:text-violet-700 underline;
+        @apply text-gray-200 hover:text-violet underline;
     }
 
     .main-container {
