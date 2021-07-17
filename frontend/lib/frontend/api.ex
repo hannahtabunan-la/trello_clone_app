@@ -1,7 +1,7 @@
 defmodule Frontend.API do
   use Tesla
   # plug Tesla.Middleware.BaseUrl, "http://backend:4000/api"
-  plug Tesla.Middleware.BaseUrl, "http://localhost:4000/api"
+  plug Tesla.Middleware.BaseUrl, "http://localhost:7000/api"
   plug Tesla.Middleware.JSON
 
   def ping() do
