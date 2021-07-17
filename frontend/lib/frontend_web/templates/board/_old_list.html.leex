@@ -1,0 +1,25 @@
+<div phx-hook="Drag" id="drag">
+    <div class="grid grid-cols-3 gap-4">
+        <div>
+            <%= live_component @socket, FrontendWeb.Live.Components.DropZoneComponent,
+                draggables: @pending,
+                drop_zone_id: "pending",
+                title: "Pending"
+            %>
+        </div>
+        <div>
+            <%= live_component @socket, FrontendWeb.Live.Components.DropZoneComponent,
+                draggables: @in_progress,
+                drop_zone_id: "in_progress",
+                title: "In Progress"
+            %>
+        </div>
+        <div>
+            <%= live_component @socket, FrontendWeb.Live.Components.DropZoneComponent,
+                draggables: @completed,
+                drop_zone_id: "completed",
+                title: "Completed"
+            %>
+        </div>
+    </div>
+</div>
