@@ -1,6 +1,13 @@
 <%= for card <- @cards do %>
-    <div class="card" draggable="true" id="<%= card.id %>"
-        phx-click="edit_task" phx-value-id="<%= card.id %>">
-        <%= card.title %>
-    </div>
+    <%= if Policies.policy(assigns, :board_task_actions) == :ok do %>
+        <div class="card" draggable="true" id="<%= card.id %>"
+            phx-click="edit_task" phx-value-id="<%= card.id %>">
+            <%= card.title %>
+        </div>
+    <% else %>
+        <div class="card" id="<%= card.id %>"
+            phx-click="edit_task" phx-value-id="<%= card.id %>">
+            <%= card.title %>
+        </div>
+    <% end %>
 <% end %>

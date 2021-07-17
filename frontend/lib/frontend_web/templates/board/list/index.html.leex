@@ -5,9 +5,11 @@
                 <div draggable="true" data-id="<%= id %>" class="list-container list-draggable" data-position="<%= position %>">
                     <div class="list-header">
                         <h3 class="list-title"><%= title %></h3>
-                        <span phx-click="edit_list" phx-value-id="<%= id %>">
-                            <svg class="list-ellipsis" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
-                        </span>
+                        <%= if Policies.policy(assigns, :board_list_actions) == :ok do %>
+                            <span phx-click="edit_list" phx-value-id="<%= id %>">
+                                <svg class="list-ellipsis" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
+                            </span>
+                        <% end %>
                     </div>
                     <div class="list-body" data-identifier="<%= id %>">
                         <%= live_component @socket, FrontendWeb.Live.Components.CardsComponent,
@@ -19,7 +21,9 @@
                             cards: list_key_value(id, @tasks)
                         %>
                     </div>
-                    <p class="addCard-btn" phx-click="new_task" phx-value-list="<%= id %>">Add a task...</p>
+                    <%= if Policies.policy(assigns, :board_task_actions) == :ok do %>
+                        <p class="addCard-btn" phx-click="new_task" phx-value-list="<%= id %>">Add a task...</p>
+                    <% end %>
                     <%= if @modal == :new_task && @list_id == "#{id}" do %>
                         <%= live_render @socket, FrontendWeb.Live.Board.Task.New,
                             id: "task-new-form",
@@ -35,18 +39,20 @@
                     <% end %>
                 </div>
             <% end %>
-            <div class="list-container">
-                <%= live_render @socket, FrontendWeb.Live.Board.List.New,
-                    id: "list-new-form",
-                    session: %{
-                        "access_token" => @access_token,
+            <%= if Policies.policy(assigns, :board_list_actions) == :ok do %>
+                <div class="list-container">
+                    <%= live_render @socket, FrontendWeb.Live.Board.List.New,
+                        id: "list-new-form",
+                        session: %{
+                            "access_token" => @access_token,
                             "current_user" => @current_user,
                             "permissions" => @permissions,
-                        "csrf_token" => @csrf_token,
-                        "board_id" => @board.id
-                    }
-                %>
-            </div>
+                            "csrf_token" => @csrf_token,
+                            "board_id" => @board.id
+                        }
+                    %>
+                </div>
+            <% end %>
         </div>
     </div>
 </div>
