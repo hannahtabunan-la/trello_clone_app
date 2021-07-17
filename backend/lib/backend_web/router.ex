@@ -36,17 +36,12 @@ defmodule BackendWeb.Router do
     post "/signup", AccountController, :create
     post "/signin", AccountController, :signin
 
-    # resources "/boards", BoardController, [:index, :create, :show, :update, :delete]
 
-    # resources "/lists", ListController, [:index, :create, :show, :update, :delete]
-
-    # resources "/tasks", TaskController, [:index, :create, :show, :update, :delete]
-
-    # resources "/permissions", PermissionController, [:index, :create, :show, :update]
   end
 
   scope "/api", BackendWeb do
     pipe_through [:api, :auth, :with_session]
+
     resources "/users", UserController, [:index]
 
     resources "/boards", BoardController, [:index, :create, :show, :update, :delete]
@@ -56,6 +51,8 @@ defmodule BackendWeb.Router do
     resources "/tasks", TaskController, [:index, :create, :show, :update, :delete]
 
     resources "/permissions", PermissionController, [:index, :create, :show, :update]
+
+    resources "/comments", CommentController, [:index, :create, :show, :update]
   end
 
   # Enables LiveDashboard only for development
