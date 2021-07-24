@@ -12,11 +12,20 @@
     }
 
     .modal-header {
+        @apply flex justify-between items-center pb-3;
         width: 100%;
         flex: 0;
         padding-top: 24px;
         padding-left: 24px;
         padding-right: 24px;
+    }
+
+    .modal-close {
+        @apply cursor-pointer z-50;
+    }
+
+    .modal-close > svg {
+        @apply fill-current text-gray-200;
     }
 
     .modal-body {
