@@ -26,6 +26,7 @@ defmodule Backend.Comments do
             join: t in assoc(c, :task),
             join: u in assoc(c, :user),
             where: c.task_id == ^task_id,
+            preload: [user: u, task: t],
             order_by: c.id
     Repo.all(query)
   end

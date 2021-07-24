@@ -3,7 +3,7 @@ defmodule Backend.Repo.Migrations.CommentBelongsToTask do
 
   def change do
     alter table(:comments) do
-      add :board_id, references(:boards)
+      add :task_id, references(:tasks)
     end
   end
 end
