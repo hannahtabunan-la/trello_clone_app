@@ -10,7 +10,8 @@ defmodule Frontend.Schemas.Comment do
     :user_id,
     :is_deleted,
     :inserted_at,
-    :updated_at
+    :updated_at,
+    :created_by
   ]
 
   # @derive {Phoenix.Param, key: :id}
@@ -23,6 +24,7 @@ defmodule Frontend.Schemas.Comment do
     field :is_deleted, :boolean, default: false
     field :task_id, :id
     field :user_id, :id
+    field :created_by, :map
 
     timestamps()
   end
