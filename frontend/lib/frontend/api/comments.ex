@@ -12,7 +12,6 @@ defmodule Frontend.API.Comments do
   end
 
   def create_comment(params) do
-    IO.puts("+++++ LISTS_API_CREATE +++++")
     url = "/comments"
     {access_token, params} = Map.pop(params, "access_token")
 
