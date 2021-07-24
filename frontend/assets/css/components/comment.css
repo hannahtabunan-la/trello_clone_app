@@ -1,0 +1,37 @@
+@layer components {
+    .comment {
+        @apply antialiased mx-auto max-w-screen-sm;
+    }
+
+    .comment-header {
+        @apply mb-4 text-lg font-semibold text-gray-900;
+    }
+
+    .comment-container {
+        @apply space-y-4;
+    }
+
+    .comment-item {
+        @apply flex;
+    }
+
+    .comment-avatar {
+        @apply flex-shrink-0 mr-3;
+    }
+
+    .comment-avatar > img {
+        @apply mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10;
+    }
+
+    .comment-content {
+        @apply flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed;
+    }
+
+    .comment-form {
+        @apply flex mx-auto items-center justify-center shadow-lg mt-10 mx-8 mb-4 max-w-lg;
+    }
+
+    .comment-form > form {
+        @apply w-full max-w-xl rounded-lg px-4 pt-2;
+    }
+}
