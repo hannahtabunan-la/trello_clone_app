@@ -4,6 +4,7 @@ defmodule FrontendWeb.Live.Board.Task.Edit do
   alias FrontendWeb.Router.Helpers, as: Routes
 
   alias Frontend.API.Tasks
+  alias Frontend.API.Comments
   alias Frontend.Schemas.Task
 
   def mount(_params, session, socket) do
@@ -17,7 +18,8 @@ defmodule FrontendWeb.Live.Board.Task.Edit do
       csrf_token: session["csrf_token"],
       id: session["id"],
       submit_handler: "update",
-      submit_disble_message: "Updating"
+      submit_disble_message: "Updating",
+      action: :view_task
     }
 
     # if connected?(socket) do
@@ -25,7 +27,6 @@ defmodule FrontendWeb.Live.Board.Task.Edit do
     # end
 
     {:ok, fetch(assign(socket, assigns))}
-
   end
 
   def render(assigns),
