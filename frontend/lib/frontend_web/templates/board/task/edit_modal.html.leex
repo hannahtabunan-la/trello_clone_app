@@ -28,26 +28,50 @@
     -->
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">Edit Task</h3>
+          <div class="flex items-center">
+            <i class="fas fa-thumbtack mr-4 text-violet-900"></i>
+            <h3 class="modal-title" id="modal-title"><%= @task.title %></h3>
+          </div>
       </div>
       <div class="modal-body">
-        <%= f = form_for @changeset, "#", [phx_submit: @submit_handler, csrf_token: @csrf_token]%>
-          <%= if @changeset.action do %>
-            <div class="alert alert-danger">
-              <p>Oops, something went wrong! Please check the errors below.</p>
-            </div>
-          <% end %>
-          <%= text_input f, :id, class: "hidden", value: @id %>
-          <div class="form-group">
-            <%= label f, :title, class: "form-label" %>
-            <%= text_input f, :title, class: "form-control" %>
-            <%= error_tag f, :title %>
-          </div>
-          <div class="form-actions">
-            <%= submit "Update", phx_disable_with: @submit_disble_message, class: "btn btn-primary btn-md" %>
-            <button type="button" class="btn btn-default btn-md" phx-click="close_modal">Cancel</button>
-          </div>
-        </form>
+        <%= case @action do %>
+          <%= :edit_task -> %>
+            <%= f = form_for @changeset, "#", [phx_submit: @submit_handler, csrf_token: @csrf_token]%>
+              <%= if @changeset.action do %>
+                <div class="alert alert-danger">
+                  <p>Oops, something went wrong! Please check the errors below.</p>
+                </div>
+              <% end %>
+              <%= text_input f, :id, class: "hidden", value: @id %>
+              <div class="form-group">
+                <%= label f, :title, class: "form-label" %>
+                <%= text_input f, :title, class: "form-control" %>
+                <%= error_tag f, :title %>
+              </div>
+              <div class="form-group">
+                <%= label f, :assignee_id, class: "form-label", value: 18 %>
+                <%= select f, :assignee_id, 18..100 %>
+                <%= error_tag f, :assignee_id %>
+              </div>
+              <div class="form-actions">
+                <%= submit "Update", phx_disable_with: @submit_disble_message, class: "btn btn-primary btn-md" %>
+                <button type="button" class="btn btn-default btn-md" phx-click="close_modal">Cancel</button>
+              </div>
+            </form>
+          <%= :view_task -> %>
+            Assignee:
+        <% end %>
+
+        <%= live_render @socket, FrontendWeb.Live.Board.Comment.Index,
+          id: "comment-index",
+          session: %{
+              "access_token" => @access_token,
+              "current_user" => @current_user,
+              "permissions" => @permissions,
+              "csrf_token" => @csrf_token,
+              "task_id" => @id
+          }
+        %>
       </div>
     </div>
   </div>
