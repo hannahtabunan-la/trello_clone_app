@@ -1,14 +1,14 @@
 @layer components {
     .comment {
-        @apply antialiased mx-auto max-w-screen-sm;
+        @apply antialiased mx-auto max-w-screen-sm mt-4;
     }
 
     .comment-header {
-        @apply mb-4 text-lg font-semibold text-gray-900;
+        @apply mb-2 text-base font-semibold text-gray-900;
     }
 
     .comment-container {
-        @apply space-y-4;
+        @apply space-y-2;
     }
 
     .comment-item {
@@ -28,7 +28,7 @@
     }
 
     .comment-form {
-        @apply flex mx-auto items-center justify-center mt-4 mx-8 mb-4 max-w-lg;
+        @apply flex mx-auto items-center justify-center max-w-lg;
     }
 
     .comment-form > form {

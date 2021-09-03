@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Trello</title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    
+    <!-- Title -->
+    <link href="https://fonts.googleapis.com/css?family=Chivo:300,700|Playfair+Display:700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+
+    <!-- Description -->
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+
+    <%= csrf_meta_tag() %>
+
+    <style>
+
+      * {
+        "Whitney SSm A", "Whitney SSm B", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+      }
+
+        .error-text {
+            font-size: 130px;
+        }
+
+        @media (min-width: 768px) {
+            .error-text {
+            font-size: 220px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <main role="main">
+      <div class="main-container">
+        <div class="h-screen w-screen flex justify-center items-center flex-col">
+          <div class="font-sans text-white error-text"><%= @code %></div>
+          <p class="font-sans text-white"><%= @message %></p>
+        </div>
+
+        <div class="absolute w-screen bottom-0 mb-6 text-white text-center font-sans text-xl">
+          <span class="opacity-50">Take me back to</span>
+          <a class="border-b" href="http://localhost:7500/boards">Dashboard</a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+

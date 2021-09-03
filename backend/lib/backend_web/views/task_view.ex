@@ -16,6 +16,7 @@ defmodule BackendWeb.TaskView do
   def render("task.json", %{task: task}) do
     %{id: task.id,
       title: task.title,
+      description: task.description,
       position: task.position,
       is_deleted: task.is_deleted,
       board_id: task.board_id,

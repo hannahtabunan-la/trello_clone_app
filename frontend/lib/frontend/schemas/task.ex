@@ -6,6 +6,7 @@ defmodule Frontend.Schemas.Task do
   @schema_fields [
     :id,
     :title,
+    :description,
     :position,
     :user_id,
     :board_id,
@@ -23,6 +24,7 @@ defmodule Frontend.Schemas.Task do
   schema "tasks" do
     field :id, :id
     field :title, :string
+    field :description, :string
     field :position, :decimal, default: 1.0
     field :is_deleted, :boolean, default: false
     field :user_id, :id
@@ -35,6 +37,7 @@ defmodule Frontend.Schemas.Task do
 
   @update_attrs [
     :title,
+    :description,
     :position,
     :is_deleted,
     :list_id,
@@ -49,7 +52,7 @@ defmodule Frontend.Schemas.Task do
 
   def create_changeset(task, params \\ %{}) do
     task
-    |> cast(params, [:title, :user_id, :board_id, :list_id, :assignee_id])
+    |> cast(params, [:title, :description, :user_id, :board_id, :list_id, :assignee_id])
     |> validate_required([:title, :board_id, :list_id])
   end
 

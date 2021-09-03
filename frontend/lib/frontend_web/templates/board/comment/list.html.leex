@@ -1,6 +1,7 @@
 <div class="comment">
-  <h3 class="comment-header">Comments</h3>
+  <h3 class="comment-header">Add comment</h3>
   <div class="comment-container">
+    <%= render "form.html", assigns %>
     <%= for comment <- @comments do %>
       <div class="comment-item">
         <div class="comment-avatar">

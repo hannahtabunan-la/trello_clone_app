@@ -8,17 +8,17 @@ defmodule Frontend.API.Auth do
 
   @success_codes 200..399
 
-  def auth(params) do
+  # def auth(params) do
 
-  end
+  # end
 
-  defp from_response(%{"user"=>user, "token"=>token}) do
-    changeset = %User{}
-    |> User.changeset(user)
-    |> Changeset.apply_changes()
+  # defp from_response(%{"user"=>user, "token"=>token}) do
+  #   changeset = %User{}
+  #   |> User.changeset(user)
+  #   |> Changeset.apply_changes()
 
-    %{"user": changeset, "token": token }
-  end
+  #   %{"user": changeset, "token": token }
+  # end
 
   def client() do
     middleware = [

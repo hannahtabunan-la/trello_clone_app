@@ -23,7 +23,7 @@
         <%# TODO: Add behavior - edit user %>
         <button type="button" class="dropdown bg-violet-800 text-gray-200 hover:text-gray-100 rounded-full h-10 w-10 flex items-center justify-center font-bold cursor-pointer">
             <%= get_first_charac_string(@conn.private.plug_session["user"].name) %>
-        </span>
+        </button>
         <div class="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95 bg-violet-300">
             <div class="absolute right-0 w-56 mt-6 origin-top-right bg-violet-300 border-violet divide-y divide-gray-100 rounded-md shadow-lg outline-none" aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                 <div class="px-4 py-3">         
